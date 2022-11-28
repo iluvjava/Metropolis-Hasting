@@ -32,11 +32,17 @@ abstract type BoundedDiscreteSampler <: BaseChain
 end
 
 
+
+
+### ====================================================================================================================
+### ISRW: INTEGER RANDOM WALKS BASE CHAIN.
+### ====================================================================================================================
 """
 ISRW: Integer Sampler with Random Walks. 
 ------
 The doubly stochastic base chain, it's a vector of integers where each element are within a range. 
-It samples things by perturbing each of the element to {1, -1} each with probability 1/2. A simple symmetric random walks that can hold. 
+It samples things by *perturbing each of the element to {1, -1} each with probability 1/4, 
+and stay in in the middle with probability 1/2!* . A simple symmetric random walks that is doubly stochastic. 
 
 -----
 It has a periodic boundary conditions on each dimension, this makes it doubly stochastic because uniform distribution 
@@ -95,7 +101,9 @@ function sample(this::ISRW, state::Vector{Int})
     if any([state[i] < l[i] || state[i] > b[i]  for i in 1:length(l)])
         @error("One of the elements in the state vector is out of range. ")
     end
-    function LoopBackThreshold(x, l, b) # impose periodic conditions for a number.  
+    
+    # impose dirichelet boundary conditions for an integers on the range of (l, b), inclusive both ends
+    function LoopBackThreshold(x, l, b) 
         if l == b
             return l
         end
@@ -110,11 +118,12 @@ function sample(this::ISRW, state::Vector{Int})
 
     # Actual Works
     for _ in 1:this.skips
-        newstate = LoopBackThreshold.(rand((-1, 1), n) + state, l, b)
+        newstate = LoopBackThreshold.(rand((-1, 1), n).*rand((0, 1), n) + state, l, b)
         state = newstate
     end
     return state
 end
+
 
 """
 functor here is just sampling. 
@@ -146,6 +155,11 @@ mutable struct GPS <: BaseChain
 end
 
 
+
+### ====================================================================================================================
+### The Metroplis Hasting Chain
+### ====================================================================================================================
+
 """
 MCH: Metropolis Hasting Chain
 ------
@@ -155,23 +169,47 @@ to sample from a distribution function. It also requires an initial state too.
 
 """
 mutable struct MHC
-    f::Function
-    bc::Union{Function, BaseChain}
-    x0::Vector
-    approved::Int
-    rejected::Int
+    f::Function                     # target distribution function. 
+    bc::Union{Function, BaseChain}  # the base chain instance. 
+    x0::Vector                      # the previous state. 
+    states::Vector                  # the vector storing all the states of the chain. 
+    values::Vector                  # the values for each of the states, stored sparsely. 
+    record_interval::Int            # record the states and values every some intervals. 
+    approved::Int                   # how many candidates from base chain is approved? 
+    rejected::Int                   # how many candidates from the base chain is rejected. 
+    k::Int                          # the current iterations numbers we are at for the chain. 
 
     """
     Set up the MCH using: 
-    ### Attributes
+    ### Positional Parameters
     - `f::Function`: a probability assignment function for the base chain. 
     - `bc::BaseChain`: The base chain that we are going to sample our candidates from. 
+    - `x0::Vector`: The initial state for this chain as a vector. 
+    ### Keyword Parameters
+    - `record_interval`: the options to store some of the states every interval and the function 
+    value of the states. 
     """
-    function MHC(f::Function, bc::Union{Function, BaseChain}, x0::Vector)
+    function MHC(
+        f::Function, 
+        bc::Union{Function, BaseChain}, 
+        x0::Vector; 
+        record_interval::Int=typemax(Int)
+    )
         this = new() 
         this.f = f
         this.bc = bc 
         this.x0 = x0
+        this.states = Vector{typeof(x0)}()
+        push!(this.states, x0)
+        
+        first_val = f(x0)
+        this.values = Vector{typeof(first_val)}()
+        push!(this.values, first_val)
+
+        this.record_interval = record_interval
+        this.rejected = 0
+        this.approved = 0
+        this.k = 0
         return this
     end
 
@@ -182,19 +220,54 @@ end
 Obtain the next sample for the MCH instance. 
 """
 function (this::MHC)()
-    bc = this.bc; x0 = this.x0
+    bc = this.bc; x0 = this.x0; f = this.f
     candidate = bc(x0)
-    r = f(candidate)/f(x0)
+    v = f(x0)
+    c = f(candidate)
+    r = c/v
     if isnan(r) || isinf(r) || r < 0
         @error("The ratio from the probaility density function is nan, inf, or negative. ")
     end
-
-    rho = min(f(candidate)/f(x0), 1)
-    if rand() < rho
+    this.k += 1             # iteration counter increment. 
+    rho = min(c/v, 1)       # acceptance probability of candidate
+    next_state = x0         # the next-state.
+    next_value = v
+    if rand() < rho         # candidate state is approved. 
         this.x0 = candidate
+        next_state = candidate  
+        next_value = c
         this.approved += 1
-        return candidate
+    else                    # candidate state is not approved. 
+        this.rejected += 1
     end
-    this.rejected += 1
-    return x0
+    # store the information here. 
+    push!(this.values, next_value)
+    if mod(this.k, this.record_interval) == 0   
+        push!(this.states, next_state)
+    end
+    return next_state
+end
+
+
+"""
+Clear all the information stored in this instance and then start fresh. It clears
+1. The functions values and all previous states. 
+2. The reject and approval rate for the states. 
+"""
+function empty!(this::MHC)
+    this.states = [x0]
+    this.values = [f(x0)]
+    this.rejected = 0
+    this.approved = 0
+    this.k = 0
+    return this
+end
+
+
+"""
+    Try to perform simulated annealing for any objective function and find the maximum 
+    of that objective function given some kind of temperature. 
+"""
+function simulated_annealing(mch::MHC, obj_fxn::Function, max_iter::Int, temp::Real)
+
 end

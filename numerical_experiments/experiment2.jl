@@ -8,12 +8,14 @@ using Plots, Distributions, LinearAlgebra
 """
 sample uniformally from a box in 2D, this is used as a base chain for 2D MCMC
 method. 
+
 ------
 ### Positional Arguments
 - `lower_left::Tuple{Reals, Reals}`: A tuple representing the right bottom 
 coordinate of the rectagular region. 
 - `upper_right::Tuple{Reals, Reals}`: A tuple represetning the top right coordinate 
 of the bounding rectangle. 
+
 ------
 ### Returns: 
 `[x,y]`: A vector representing the coordinate of the randomly chosen point. 

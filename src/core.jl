@@ -137,27 +137,87 @@ end
 ### ====================================================================================================================
 
 
+"""
+This is something used a lot for discrete stuff. So let's make a struct so it acts like a functor. 
+This type of random walks only changes one element at a time, significantly reducing the variances between each 
+transition, making a slow sampling possible. It chooses exactly one element uniformally at random 
+and then mutates it, swapping it between {0, 1}
+"""
+mutable struct BSDRW <: BaseChain
+    n::Int
+    skips::Int
+    function BSDRW(n::Int; skips::Int=1)
+        this = new() 
+        this.n = n
+        this.skips = skips
+        return this 
+    end
+end
+
+
+"""
+sample the next one. 
+"""
+function (this::BSDRW)(x::Vector{Int})
+    @assert all([item in [1, 0] for item in x]) "The state vector pased to BSDRW is non-binary. "
+    n = this.n
+    idx_mutate = rand(1:n)
+    y = copy(x)
+    y[idx_mutate] = mod(y[idx_mutate] + 1, 2)
+    return y
+end
+
 
 
 ### ====================================================================================================================
-
-
+### Hyper Cube Wrapped Gaussian Single Direction Base Chain Sampler
+### ====================================================================================================================
 """
-GPS: Grid Point Sampler 1D. 
-------
-We make a range with some points in the range, equally spaced with each other and then sample from it with random 
-walks type of sampling. 
-
+A hyper cube with period conditions and we sample from it based on some point using the Guassian Distributions 
+but only along a single direction. You can set the variance/std for the single direction guassian sampling 
+distributions. Guassian on a periodic interval is known as the Wrapped Guassian. 
 """
-mutable struct GPS <: BaseChain
+mutable struct HCWGSDS <: BaseChain 
     n::Int
-    rngl::Vector{Int}
-    rngb::Vector{Int}
-    bin_counts::Vector{Int}
     skips::Int
+    l::Vector{Real}
+    b::Vector{Real}
+    sigma::Real
+    
+    """
+    l, the lower bound, b is the upper bound. 
+    """
+    function HCWGSDS(l::Vector, b::Vector, sigma::Real=1; skips::Int=1) 
+        this = new()
+        @assert length(l) == length(b) "The lower bound and the upper bound for the HCWGSDS has to be the same length. "
+        @assert all([l[i] <= b[i] for i in 1:length(l)]) "All elements in l, b has to represent an interval. "
+        this.l = l
+        this.b = b
+        this.sigma = sigma
+        this.n = length(l)
+        this.skips = skips
+        return this
+    end
+
 
 end
 
+
+"""
+Functor for the HCWGSDS, draw one sample from this chain given a state. A wraped guassian with the given 
+boundary is drawn. 
+"""
+function(this::HCWGSDS)(x)
+    l = this.l
+    b = this.b
+    n = this.n
+    σ = this.sigma
+    @assert (x .>= l .&& x .<= b)|>all "In correct state, one of the element is out of range. "
+    i = rand(1:n)
+    y = copy(x)
+    y[i] = mod(rand(Normal(x[i] + σ)), b[i] - l[i]) + l[i]
+    return y
+end
 
 
 ### ====================================================================================================================
@@ -282,12 +342,33 @@ This struct is the simmulated annealing struct.
 - It's a functor where each call is one sample from the MHC. 
 """
 struct SA
-    mch::MHC
-    bc::Union{BaseChain, Function}
-    obj_fxn::Function
-    temp::Real
-
     
+    mch::MHC                        # the metropolish hasting chain .
+    bc::Union{BaseChain, Function}  # the base chain .
+    obj_fxn::Function               # objective value of the function.
+    temp::Real                      # the temperature. 
+    x0                              # the current solutions that we are working on. 
+    
+
+    function SA(
+        mch::MHC, 
+        bc::Union{BaseChain, Function}, 
+        obj_fxn::Function, 
+        x0,
+        temp=1
+    ) 
+        this = new()
+        this.mch = mch
+        this.bc = bc
+        this.obj_fxn = obj_fxn
+        this.temp = temp
+
+        return this
+    end
+    
+end
+
+function (this::SA)()
 
 end
 

@@ -4,12 +4,16 @@
 \usepackage[english]{babel}
 \usepackage{amsthm}
 \usepackage{mathtools}
+\usepackage{subcaption}
 \usepackage{hyperref}
+\usepackage{algorithmic}
+\usepackage{algorithm}
 % \usepackage{minted}
 % Basic Type Settings ----------------------------------------------------------
 \usepackage[margin=1in,footskip=0.25in]{geometry}
 \linespread{1}  % double spaced or single spaced
 \usepackage[fontsize=12pt]{fontsize}
+\usepackage{authblk}
 
 \theoremstyle{definition}
 \newtheorem{theorem}{Theorem}       % Theorem counter global 
@@ -17,7 +21,10 @@
 \newtheorem{lemma}{Lemma}[subsection]  % lemma counter is subsection
 \newtheorem{definition}{Definition}
 \newtheorem{remark}{Remark}[subsection]
-
+{
+    % \theoremstyle{plain}
+    \newtheorem{assumption}{Assumption}
+}
 
 \hypersetup{
     colorlinks=true,
@@ -41,10 +48,10 @@
 \usepackage{beramono}
 \usepackage[usenames,dvipsnames]{xcolor}
 \lstdefinelanguage{Julia}%
-  {morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
-      end,export,false,for,function,immutable,import,importall,if,in,%
-      macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
-      using,while},%
+  {morekeywords={abstract,break,case,catch,const,continue,do, else, elseif,%
+      end, export, false, for, function, immutable, import, importall, if, in,%
+      macro, module, otherwise, quote, return, switch, true, try, type, typealias,%
+      using, while},%
    sensitive=true,%
    alsoother={$},%
    morecomment=[l]\#,%
@@ -60,10 +67,28 @@
     commentstyle     = \color{ForestGreen},
     showstringspaces = false,
 }
-
-
+\title{MonteCarlo Markov Chain and Simulated Annealing with Applications and Implementations}
+\author{Hongda Li}
 
 \begin{document}
+\maketitle
+\begin{abstract}
+    In this report, we prove the fundamentals for the convergence of the Metropolis Hasting Chain under the discrete case; then introduce some ideas from the continuous case. We discuss the Simulated Annealing algorithm as a particular case of the Metropolis Hasting and use both algorithms to construct several numerical experiments in Julia. The first experiment is sampling from complicated distribution functions on 2D, the second is applying Simulated Annealing for the knapsack problem, and in the third experiment, we test simulated Annealing on the Rastrigin function using different base chains. We collect data and illustrate the behaviors of these algorithms. 
+\end{abstract}
+
 \numberwithin{equation}{subsection}
-\LaTeX Template
+\section{Introduction}
+    
+
+\section{Preliminaries}\label{sec:preliminaries}
+    
+\section{Blah Blah Bleeeh}
+    \subsection{Blah Blah Blah Bleeh Bleeh Bleeh}
+        
+
+\appendix
+\section{Bleeh Bleeh Bleeh I am not Listening}
+
+\bibliographystyle{plain}
+\bibliography{refs.bib}
 \end{document}

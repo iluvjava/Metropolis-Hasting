@@ -132,6 +132,10 @@ function (this::ISRW)(state::Vector{Int})
     return sample(this, state)
 end
 
+### ====================================================================================================================
+### BSDRW: Binary Single Direction Random walk Base chain 
+### ====================================================================================================================
+
 
 
 
@@ -269,22 +273,23 @@ end
 ### Performs Simulated Annealing for the given objective function and 
 ### ============================================================================
 
-"""
-Try to perform simulated annealing for any objective function and find the maximum 
-of that objective function given some kind of temperature. 
 
-### Returns
-- The best objective value found 
-- and the solutions to it during the iterations, the solutions. 
-- The list of objective values for the function during all iterations. 
 """
-function simulated_annealing(
-    mch::MHC, 
-    obj_fxn::Function, 
-    bc::Union{BaseChain, Function}, 
-    max_iter::Int, temp::Real
-)
+This struct is the simmulated annealing struct. 
+### What it Does
+- Formulate the optimization problem in form of MHC. 
+- store useful parameters while running the MHC. 
+- It's a functor where each call is one sample from the MHC. 
+"""
+struct SA
+    mch::MHC
+    bc::Union{BaseChain, Function}
+    obj_fxn::Function
+    temp::Real
 
     
-    return nothing
+
 end
+
+
+

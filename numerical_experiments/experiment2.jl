@@ -42,7 +42,7 @@ function run_experiment()
 
     bc(_) = unif_sampler_2d((-1, -1), (1, 1))
     global MHC_ = MHC((x)-> f(x), bc, [0, 0])
-    global POINTS = [MHC_() for _ in 1:100000]
+    global POINTS = [MHC_() for _ in 1:1000000]
     xs = [point[1] for point in POINTS]
     ys = [point[2] for point in POINTS]
     histogram2d(

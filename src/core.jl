@@ -264,10 +264,27 @@ function empty!(this::MHC)
 end
 
 
-"""
-    Try to perform simulated annealing for any objective function and find the maximum 
-    of that objective function given some kind of temperature. 
-"""
-function simulated_annealing(mch::MHC, obj_fxn::Function, max_iter::Int, temp::Real)
 
+### ============================================================================
+### Performs Simulated Annealing for the given objective function and 
+### ============================================================================
+
+"""
+Try to perform simulated annealing for any objective function and find the maximum 
+of that objective function given some kind of temperature. 
+
+### Returns
+- The best objective value found 
+- and the solutions to it during the iterations, the solutions. 
+- The list of objective values for the function during all iterations. 
+"""
+function simulated_annealing(
+    mch::MHC, 
+    obj_fxn::Function, 
+    bc::Union{BaseChain, Function}, 
+    max_iter::Int, temp::Real
+)
+
+    
+    return nothing
 end

@@ -32,10 +32,8 @@ abstract type BoundedDiscreteSampler <: BaseChain
 end
 
 
-
-
 ### ====================================================================================================================
-### ISRW: INTEGER RANDOM WALKS BASE CHAIN.
+### ISRW: INTEGER BINOMIAL RANDOM WALKS BASE CHAIN.
 ### ====================================================================================================================
 """
 ISRW: Integer Sampler with Random Walks. 
@@ -54,13 +52,13 @@ is the stationary distributions.
 -`rngb:Vector{Int}`: A vector indicating the upper bound the integer random variables on each dimension, inclusive. 
 -`skips:Int`: Sample multiple steps of random walks. 
 """
-mutable struct ISRW <: BoundedDiscreteSampler
+mutable struct IBRW <: BoundedDiscreteSampler
     n::Int
     rngl::Vector{Int}
     rngb::Vector{Int}
     skips::Int
 
-    function ISRW(l::Vector{Int}, b::Vector{Int}, skips::Int=1)
+    function IBRW(l::Vector{Int}, b::Vector{Int}, skips::Int=1)
         @assert length(l) == length(b) "The vector passed to BaseChain Integers has to be the same length. "
         @assert all([l[i] <= b[i] for i in 1:length(l)]) "Not all the elements represents an interval. "
         this = new() 
@@ -71,27 +69,27 @@ mutable struct ISRW <: BoundedDiscreteSampler
         return this
     end
 
-    function ISRW(rngs::Vector{Tuple{Int, Int}})
-        ISRW([item[1] for item in rngs], [item[2] for item in rngs])
+    function IBRW(rngs::Vector{Tuple{Int, Int}})
+        IBRW([item[1] for item in rngs], [item[2] for item in rngs])
     end
 
-    function ISRW(rng::Tuple{Int, Int})
-        return ISRW([rng])
+    function IBRW(rng::Tuple{Int, Int})
+        return IBRW([rng])
     end
 
-    function ISRW(l::Int, b::Int)
-        return ISRW((l, b))
+    function IBRW(l::Int, b::Int)
+        return IBRW((l, b))
     end
 
 end
 
 
-function (this::ISRW)(state::Int)
+function (this::IBRW)(state::Int)
     return this([state])
 end
 
 
-function sample(this::ISRW, state::Vector{Int})
+function sample(this::IBRW, state::Vector{Int})
     n = this.n
     l = this.rngl
     b = this.rngb
@@ -128,14 +126,13 @@ end
 """
 functor here is just sampling. 
 """
-function (this::ISRW)(state::Vector{Int})
+function (this::IBRW)(state::Vector{Int})
     return sample(this, state)
 end
 
 ### ====================================================================================================================
 ### BSDRW: Binary Single Direction Random walk Base chain 
 ### ====================================================================================================================
-
 
 """
 This is something used a lot for discrete stuff. So let's make a struct so it acts like a functor. 
@@ -167,7 +164,17 @@ function (this::BSDRW)(x::Vector{Int})
     return y
 end
 
+### ====================================================================================================================
+### Hyper Cube Uniform Random Walks All Directions 
+### ====================================================================================================================
 
+mutable struct HCURWAD
+    n::Int
+    skips::Int
+    l::Vector{Real}
+    b::Vector{Real}
+
+end
 
 ### ====================================================================================================================
 ### Hyper Cube Wrapped Gaussian Single Direction Base Chain Sampler
@@ -176,6 +183,9 @@ end
 A hyper cube with period conditions and we sample from it based on some point using the Guassian Distributions 
 but only along a single direction. You can set the variance/std for the single direction guassian sampling 
 distributions. Guassian on a periodic interval is known as the Wrapped Guassian. 
+
+### Fields
+
 """
 mutable struct HCWGSDS <: BaseChain 
     n::Int
@@ -336,22 +346,28 @@ end
 
 """
 This struct is the simmulated annealing struct. 
+
 ### What it Does
 - Formulate the optimization problem in form of MHC. 
 - store useful parameters while running the MHC. 
 - It's a functor where each call is one sample from the MHC. 
+
 """
 struct SA
     
-    mch::MHC                        # the metropolish hasting chain .
-    bc::Union{BaseChain, Function}  # the base chain .
+    mch::MHC                        # the metropolish hasting chain.
+    bc::Union{BaseChain, Function}  # the base chain.
     obj_fxn::Function               # objective value of the function.
-    temp::Real                      # the temperature. 
-    x0                              # the current solutions that we are working on. 
+    f::Function                     # the distributions function.
     
-
+    x_star                          # current found optimal solutions.
+    obj_values::Vector              # histocal values for the objective functions.
+    distr_values::Vector            # The values of the distributions funcitons.
+    
+    """
+    
+    """
     function SA(
-        mch::MHC, 
         bc::Union{BaseChain, Function}, 
         obj_fxn::Function, 
         x0,
@@ -361,16 +377,37 @@ struct SA
         this.mch = mch
         this.bc = bc
         this.obj_fxn = obj_fxn
-        this.temp = temp
-
+        this.f = (x) -> exp(obj_fxn(x)/temp)    # define the remapped objective functions. 
+        this.mch = MCH(this.f, this.bc, x0)     # defines the inner Metropolis Hasting Chain. 
+        this.obj_values = f(x0)                 # The initial value
+        this.distr_values = obj_fxn(x0)         # The initial value for the distribution function. 
         return this
     end
     
 end
 
+"""
+Calls on the function to perform one step of the algorithm. 
+"""
 function (this::SA)()
-
+    
 end
 
 
+"""
+Change the temperature. 
+"""
+function change_temp!(this::SA, temp::Real)
+    @assert temp > 0 "the temperature should be strictly greater than zero but we have $(temp) > 0. "
+    this.f = (x) -> exp(obj_fxn(x)/temp)
+    return this 
+end
+
+
+"""
+Restart the algorithm on the currently found optimal solution, clear data. 
+"""
+function opt_restart!(this::SA)
+
+end
 

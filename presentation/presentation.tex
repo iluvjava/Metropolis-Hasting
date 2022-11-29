@@ -1,0 +1,130 @@
+\documentclass[11pt]{beamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\DeclareMathOperator {\argmin}{argmin}
+
+\author{Hongda Li}
+\title{Metropolis Hasting Chain and Simulated Annealing}
+% Informe o seu email de contato no comando a seguir
+% Por exemplo, alcebiades.col@ufes.br
+\newcommand{\email}{email}
+%\setbeamercovered{transparent}
+\setbeamertemplate{navigation symbols}{}
+%\logo{}
+\institute[]{UBC Okanagan}
+\date{\today}
+%\subject{}
+
+% ---------------------------------------------------------
+% Selecione um estilo de referência
+\bibliographystyle{plain}
+
+%\bibliographystyle{abbrv}
+%\setbeamertemplate{bibliography item}{\insertbiblabel}
+% ---------------------------------------------------------
+
+% ---------------------------------------------------------
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{ToC}
+    \tableofcontents
+\end{frame}
+
+\section{Introduction}
+    \begin{frame}{Introdução}
+        Texto referente à introdução.
+    \end{frame}
+
+\section{Conteúdo}
+    \begin{frame}{Definition, Theorems and Corollaries}
+        \begin{block}{Definição 2.1.1}
+        Aqui temos uma nova definição.
+        \end{block}
+
+        \begin{block}{Teorema 2.1.2}
+        Aqui temos um novo teorema.
+        \end{block}
+
+        \begin{block}{Exemplo 2.1.3}
+        Aqui temos um novo exemplo.
+        \end{block}
+
+        \begin{block}{Corolário 2.1.4}
+        Aqui temos um novo corolário.
+        \end{block}
+    \end{frame}
+    \begin{frame}{Citation and References}
+        Livro de Análise Real~\cite{lima2004analise}
+    \end{frame}
+
+    \begin{frame}{Listas}
+        Exemplo de lista com símbolos:
+        \begin{itemize}
+            \item Primeiro elemento
+            \item Segundo elemento
+        \end{itemize}
+        \bigskip
+        Exemplo de lista com itens enumerados:
+        \begin{enumerate}
+            \item Primeiro elemento
+            \item Segundo elemento
+        \end{enumerate}
+    \end{frame}
+    \begin{frame}{Tabelas}
+        A Tabela mostra um modelo de tabela.
+        \begin{table}[htb]
+            \caption{Exemplo de tabela}
+            \label{tab:modelo_tabela}
+            \centering
+            \begin{tabular}{c|c|c|c}
+                \hline
+                \textbf{Pessoa} & \textbf{Idade} & \textbf{Peso} & \textbf{Altura} \\ \hline
+                Marcos & 26    & 68   & 178    \\ \hline
+                Ivone  & 22    & 57   & 162    \\ \hline
+                Sueli  & 40    & 65   & 153    \\ \hline
+            \end{tabular}
+
+            \medskip
+
+            Fonte: Produção do próprio autor.
+        \end{table}
+    \end{frame}
+    \begin{frame}{Imagens}
+        A Figura mostra a logomarca promocional da Universidade Federal do Espírito Santo (UFES).
+        \begin{figure}[htb]
+            \medskip
+
+            Fonte: Produção do próprio autor.
+        \end{figure}
+    \end{frame}
+    \begin{frame}{Conclusão}
+        Texto referente à conclusão.
+    \end{frame}
+    \begin{frame}{Trabalhos futuros}
+        \begin{itemize}
+            \item Estudar $\ldots$
+            \medskip
+            \item Explorar $\ldots$
+            \medskip
+            \item Analisar $\ldots$
+        \end{itemize}
+    \end{frame}
+
+\section{Referências}
+    \begin{frame}{Referências}
+        \bibliography{referencias}
+    \end{frame}
+    \begin{frame}
+        end
+    \end{frame}
+
+\end{document}

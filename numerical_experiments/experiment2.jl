@@ -95,7 +95,7 @@ mhc1 = run_experiment("uniform_base", 100000) do x
 end
 "The rejection rate is: $(mhc1.rejected/mhc1.k)"
 
-mhc2 = run_experiment("gaussian_base", 10000) do x
+mhc2 = run_experiment("gaussian_base", 100000) do x
     return wrapped_gaussian_sampler_2d(x, (-1, -1), (1, 1), sigma=0.5)
 end
 "The rejection rate is: $(mhc2.rejected/mhc2.k)"

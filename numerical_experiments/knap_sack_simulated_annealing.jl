@@ -38,5 +38,38 @@ function run_experiment()
     return nothing 
 end
 
-run_experiment()
+function run_simulated_annealing()
+    w = 1                                               # total weight allowed. 
+    n = 50                                              # items not part of the solutions!  
+    m = 100                                              # items in the solution! 
+    solns = rand(Uniform(0, w), m - 1)|>sort   
+    insert!(solns, 1, 0)                                # pad the head
+    push!(solns, 1)                                     # pad the tail 
+    solns = solns[2:end] - solns[1:end - 1]
+    not_solns = rand(Uniform(0, w), n)
+    weights = vcat(solns, not_solns)                    # the weights for all items. 
+    function obj_fxn(x)
+        dotted = dot(x, weights)
+        if dotted > 1 
+            return 0
+        end
+        return dotted
+    end
+    sim_anea = SA(BSDRW(m + n), (x) -> obj_fxn(x), zeros(Int, m + n), 0.1)
+    return sim_anea
+end
 
+"""
+Run the simulated annealing with a iteration and temperature schedule. 
+Each time when the temperature changes, it will take the current optimal found from all previous iterations 
+and then start at the point instead.
+"""
+function run_simulated_annealing_with_temp()
+end
+
+# run_experiment()
+sim_annea = run_simulated_annealing()
+for _ = 1:10000
+    sim_annea()
+end
+println("Current best optimal value is: $(sim_annea.opt)")

@@ -314,7 +314,7 @@ function (this::MHC)()
     else                    # candidate state is not approved. 
         this.rejected += 1
     end
-    # store the information here. 
+    # store the values. 
     push!(this.values, next_value)
     if mod(this.k, this.record_interval) == 0   
         push!(this.states, next_state)
@@ -325,8 +325,8 @@ end
 
 """
 Clear all the information stored in this instance and then start fresh. It clears
-1. The functions values and all previous states. 
-2. The reject and approval rate for the states. 
+1. The functions values and all previous states (current state is still there)
+2. The reject and approval rate for the states. (cleared to zero)
 """
 function empty!(this::MHC)
     this.states = [x0]
@@ -336,6 +336,16 @@ function empty!(this::MHC)
     this.k = 0
     return this
 end
+
+function rejection_rate(this::MHC)
+    return this.rejected/this.k
+end
+
+function approval_rate(this::MHC)
+    return this.approved/this.k
+end
+
+
 
 
 
@@ -353,19 +363,20 @@ This struct is the simmulated annealing struct.
 - It's a functor where each call is one sample from the MHC. 
 
 """
-struct SA
+mutable struct SA
     
-    mch::MHC                        # the metropolish hasting chain.
+    mhc::MHC                        # the metropolish hasting chain.
     bc::Union{BaseChain, Function}  # the base chain.
     obj_fxn::Function               # objective value of the function.
     f::Function                     # the distributions function.
     
-    x_star                          # current found optimal solutions.
+    x_star::Vector                  # current found optimal solution.
+    opt::Real                       # corresponding best optimal value from the objective function. 
     obj_values::Vector              # histocal values for the objective functions.
     distr_values::Vector            # The values of the distributions funcitons.
     
     """
-    
+    construct an instance of simulated annealing. 
     """
     function SA(
         bc::Union{BaseChain, Function}, 
@@ -374,23 +385,31 @@ struct SA
         temp=1
     ) 
         this = new()
-        this.mch = mch
         this.bc = bc
         this.obj_fxn = obj_fxn
         this.f = (x) -> exp(obj_fxn(x)/temp)    # define the remapped objective functions. 
-        this.mch = MCH(this.f, this.bc, x0)     # defines the inner Metropolis Hasting Chain. 
-        this.obj_values = f(x0)                 # The initial value
-        this.distr_values = obj_fxn(x0)         # The initial value for the distribution function. 
+        this.mhc = MHC(this.f, this.bc, x0)     # defines the inner Metropolis Hasting Chain. 
+        this.distr_values = this.mhc.values     # link the field to the instance.
+        this.obj_values = [obj_fxn(x0)]         # The initial value for the objective function. 
+        this.opt = this.obj_values[end]         # initial value is current optimal 
         return this
     end
     
 end
 
+
 """
-Calls on the function to perform one step of the algorithm. 
+Calls on the function to perform one step of the algorithm, update the information in this struct accordingly. 
 """
 function (this::SA)()
-    
+    state_next = this.mhc()
+    next_value = this.obj_fxn(state_next)
+    push!(this.obj_values, next_value)
+    if next_value > this.opt
+        this.opt = next_value
+        this.x_star = state_next
+    end
+    return this
 end
 
 
@@ -405,9 +424,15 @@ end
 
 
 """
-Restart the algorithm on the currently found optimal solution, clear data. 
+Restart the algorithm on the currently found optimal solution. It clears: 
+- all the objective function's values during the sampling 
+- All the distribution function's value during all sampling.
+- Empty the metropolis hasting chain as well.
 """
 function opt_restart!(this::SA)
-
+    empty!(this.mhc)
+    this.distr_values = this.mhc.values  # link 
+    this.distr_values = this.obj_fxn(this.mhc.x0)  
+    return this 
 end
 

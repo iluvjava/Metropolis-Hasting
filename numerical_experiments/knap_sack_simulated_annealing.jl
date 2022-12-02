@@ -40,13 +40,13 @@ end
 
 function get_simulated_annealing()
     w = 1                                               # total weight allowed. 
-    n = 50                                              # items not part of the solutions!  
-    m = 50                                              # items in the solution! 
+    n = 500                                             # items not part of the solutions!  
+    m = 500                                               # items in the solution! 
     global solns = rand(Uniform(0, w), m - 1)|>sort
     insert!(solns, 1, 0)                                # pad the head
     push!(solns, 1)                                     # pad the tail 
     solns = solns[2:end] - solns[1:end - 1]
-    not_solns = rand(Uniform(w, w + 1), n)
+    not_solns = rand(Uniform(0, w + 1), n)
     weights = vcat(solns, not_solns)                    # the weights for all items. 
     function obj_fxn(x)
         dotted = dot(x, weights)
@@ -62,13 +62,65 @@ end
 
 function run_experiment1()
     sim_annea = get_simulated_annealing()
-    @showprogress for tempr in (LinRange(0.005, 0.01, 100) |> collect)[end:-1:1]
+    temprs = Vector()
+    @showprogress for tempr in (LinRange(0.001, 1, 10) |> collect)[end:-1:1].^2
         change_temp!(sim_annea, tempr)
         for _ in 1:100
+            push!(temprs, tempr)
             sim_annea()
         end
         # opt_restart!(sim_annea)
     end
     println("Current best optimal value is: $(sim_annea.opt)")
-    plot(sim_annea.obj_values)
+    fig = plot(sim_annea.obj_values, label="obj val", legend=:right)
+    plot!(fig, temprs, label="temperature")
+    fig |> display
+
+    return sim_annea
 end
+
+function run_experiment2()
+    sim_annea = get_simulated_annealing()
+    temprs = Vector()
+    @showprogress for tempr in exp.(LinRange(0, -10, 10) |> collect)
+        change_temp!(sim_annea, tempr)
+        for _ in 1:100
+            push!(temprs, tempr)
+            sim_annea()
+        end
+        # opt_restart!(sim_annea)
+    end
+    println("Current best optimal value is: $(sim_annea.opt)")
+    fig = plot(sim_annea.obj_values, label="obj val", legend=:right)
+    plot!(fig, temprs, label="temperature")
+    fig |> display
+
+    return sim_annea
+end
+
+function run_experiment3()
+    sim_annea = get_simulated_annealing()
+    tempr = 1
+    k = 1
+    previous_opt = sim_annea.opt
+    temprs = Vector()
+    @showprogress for _ in 1:1000
+        sim_annea()
+        if sim_annea.opt > previous_opt
+            k += 1
+            tempr = 1/k
+            change_temp!(sim_annea, tempr)
+            previous_opt = sim_annea.opt
+        end
+        push!(temprs, tempr)
+    end
+    println("Current best optimal value is: $(sim_annea.opt)")
+    fig = plot(sim_annea.obj_values, label="obj val", legend=:right)
+    plot!(fig, temprs, label="temperature")
+    fig |> display
+    return sim_annea
+end
+
+sa1 = run_experiment1();
+sa2 = run_experiment2();
+sa3 = run_experiment3();

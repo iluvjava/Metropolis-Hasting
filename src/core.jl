@@ -244,6 +244,7 @@ to sample from a distribution function. It also requires an initial state too.
 """
 mutable struct MHC
     f::Function                     # target distribution function. 
+    adapter::Function               # a function that adapts function that is not neccesarily a distribution function. 
     bc::Union{Function, BaseChain}  # the base chain instance. 
     x0::Vector                      # the previous state. 
     states::Vector                  # the vector storing all the states of the chain. 
@@ -267,7 +268,8 @@ mutable struct MHC
         f::Function, 
         bc::Union{Function, BaseChain}, 
         x0::Vector; 
-        record_interval::Int=typemax(Int)
+        record_interval::Int=typemax(Int),
+        adapter::Union{Function, Nothing}=nothing
     )
         this = new() 
         this.f = f
@@ -284,6 +286,15 @@ mutable struct MHC
         this.rejected = 0
         this.approved = 0
         this.k = 0
+
+        if adapter === nothing
+            this.adapter = (candidate, x0, f) -> begin
+                candidate_val = f(candidate)
+                return candidate_val, candidate_val/f(x0)
+            end
+        else
+            this.adapter = adapter
+        end
         return this
     end
 
@@ -296,16 +307,14 @@ Obtain the next sample for the MCH instance.
 function (this::MHC)()
     bc = this.bc; x0 = this.x0; f = this.f
     candidate = bc(x0)
-    v = f(x0)
-    c = f(candidate)
-    r = c/v
+    c, r = this.adapter(candidate, x0, f)
     if isnan(r) || isinf(r) || r < 0
-        @error("The ratio from the probaility density function is nan, inf, or negative. ")
+        throw("The ratio from the probaility density function is nan, inf, or negative. ")
     end
     this.k += 1             # iteration counter increment. 
-    rho = min(c/v, 1)       # acceptance probability of candidate
+    rho = min(r, 1)         # acceptance probability of candidate
     next_state = x0         # the next-state.
-    next_value = v
+    next_value = this.values[end]
     if rand() < rho         # candidate state is approved. 
         this.x0 = candidate
         next_state = candidate  
@@ -371,7 +380,7 @@ mutable struct SA
     mhc::MHC                        # the metropolish hasting chain.
     bc::Union{BaseChain, Function}  # the base chain.
     obj_fxn::Function               # objective value of the function.
-    f::Function                     # the distributions function.
+    tempr::Real                     # temperature. 
     
     x_star::Vector                  # current found optimal solution.
     opt::Real                       # corresponding best optimal value from the objective function. 
@@ -390,8 +399,16 @@ mutable struct SA
         this = new()
         this.bc = bc
         this.obj_fxn = obj_fxn
-        this.f = (x) -> exp(obj_fxn(x)/temp)    # define the remapped objective functions. 
-        this.mhc = MHC(this.f, this.bc, x0)     # defines the inner Metropolis Hasting Chain. 
+        this.tempr = temp
+        adapter = (candidate_state, previous_state, g) -> begin
+            candidate_val = g(candidate_state)/this.tempr
+            previous_val = g(previous_state)/this.tempr
+            if candidate_val > previous_val
+                return candidate_val, 1
+            end
+            return candidate_val, exp(candidate_val - previous_val)
+        end
+        this.mhc = MHC(obj_fxn, this.bc, x0, adapter=adapter)     # defines the inner Metropolis Hasting Chain. 
         this.distr_values = this.mhc.values     # link!
         this.obj_values = [obj_fxn(x0)]         # The initial value for the objective function. 
         this.opt = this.obj_values[end]         # initial value is current optimal 
@@ -421,23 +438,20 @@ Change the temperature.
 """
 function change_temp!(this::SA, temp::Real)
     @assert temp > 0 "the temperature should be strictly greater than zero but we have $(temp) > 0. "
-    this.f = (x) -> exp(this.obj_fxn(x)/temp)
-    this.mhc.f = this.f # link! 
+    this.tempr = temp
     return this 
 end
 
 
 """
 Restart the algorithm on the currently found optimal solution. It clears: 
-- all the objective function's values during the sampling 
 - All the distribution function's value during all sampling.
 - Empty the metropolis hasting chain as well.
 """
 function opt_restart!(this::SA)
     empty!(this.mhc, this.x_star)
-    this.distr_values = this.mhc.values  # link 
+    this.distr_values = this.mhc.values  # re-link 
     push!(this.obj_values, this.opt)
-
     return this 
 end
 

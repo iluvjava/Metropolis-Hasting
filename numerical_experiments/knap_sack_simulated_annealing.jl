@@ -2,7 +2,7 @@
 ### method and then apply it to combinatorics problems: Knapsack Problem. 
 
 include("../src/core.jl")
-using LinearAlgebra, Distributions, Plots
+using LinearAlgebra, Distributions, Plots, IterTools, ProgressMeter
 
 """
 Perform the numerical experiment, we make the exponentially scaled objective function 
@@ -38,38 +38,37 @@ function run_experiment()
     return nothing 
 end
 
-function run_simulated_annealing()
+function get_simulated_annealing()
     w = 1                                               # total weight allowed. 
     n = 50                                              # items not part of the solutions!  
-    m = 100                                              # items in the solution! 
-    solns = rand(Uniform(0, w), m - 1)|>sort   
+    m = 50                                              # items in the solution! 
+    global solns = rand(Uniform(0, w), m - 1)|>sort
     insert!(solns, 1, 0)                                # pad the head
     push!(solns, 1)                                     # pad the tail 
     solns = solns[2:end] - solns[1:end - 1]
-    not_solns = rand(Uniform(0, w), n)
+    not_solns = rand(Uniform(w, w + 1), n)
     weights = vcat(solns, not_solns)                    # the weights for all items. 
     function obj_fxn(x)
         dotted = dot(x, weights)
         if dotted > 1 
-            return 0
+            return -Inf
         end
         return dotted
     end
-    sim_anea = SA(BSDRW(m + n), (x) -> obj_fxn(x), zeros(Int, m + n), 0.1)
+    sim_anea = SA(BSDRW(m + n), (x) -> obj_fxn(x), zeros(Int, m + n), 1)
     return sim_anea
 end
 
-"""
-Run the simulated annealing with a iteration and temperature schedule. 
-Each time when the temperature changes, it will take the current optimal found from all previous iterations 
-and then start at the point instead.
-"""
-function run_simulated_annealing_with_temp()
-end
 
-# run_experiment()
-sim_annea = run_simulated_annealing()
-for _ = 1:10000
-    sim_annea()
+function run_experiment1()
+    sim_annea = get_simulated_annealing()
+    @showprogress for tempr in (LinRange(0.005, 0.01, 100) |> collect)[end:-1:1]
+        change_temp!(sim_annea, tempr)
+        for _ in 1:100
+            sim_annea()
+        end
+        # opt_restart!(sim_annea)
+    end
+    println("Current best optimal value is: $(sim_annea.opt)")
+    plot(sim_annea.obj_values)
 end
-println("Current best optimal value is: $(sim_annea.opt)")

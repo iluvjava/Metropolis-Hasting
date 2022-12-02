@@ -327,10 +327,13 @@ end
 Clear all the information stored in this instance and then start fresh. It clears
 1. The functions values and all previous states (current state is still there)
 2. The reject and approval rate for the states. (cleared to zero)
+### Position Argument
+
 """
-function empty!(this::MHC)
+function empty!(this::MHC, x0::Union{Vector, Nothing}=nothing)
+    x0 = x0 === nothing ? this.x0 : x0
     this.states = [x0]
-    this.values = [f(x0)]
+    this.values = [this.f(x0)]
     this.rejected = 0
     this.approved = 0
     this.k = 0
@@ -389,7 +392,7 @@ mutable struct SA
         this.obj_fxn = obj_fxn
         this.f = (x) -> exp(obj_fxn(x)/temp)    # define the remapped objective functions. 
         this.mhc = MHC(this.f, this.bc, x0)     # defines the inner Metropolis Hasting Chain. 
-        this.distr_values = this.mhc.values     # link the field to the instance.
+        this.distr_values = this.mhc.values     # link!
         this.obj_values = [obj_fxn(x0)]         # The initial value for the objective function. 
         this.opt = this.obj_values[end]         # initial value is current optimal 
         return this
@@ -418,7 +421,8 @@ Change the temperature.
 """
 function change_temp!(this::SA, temp::Real)
     @assert temp > 0 "the temperature should be strictly greater than zero but we have $(temp) > 0. "
-    this.f = (x) -> exp(obj_fxn(x)/temp)
+    this.f = (x) -> exp(this.obj_fxn(x)/temp)
+    this.mhc.f = this.f # link! 
     return this 
 end
 
@@ -430,9 +434,10 @@ Restart the algorithm on the currently found optimal solution. It clears:
 - Empty the metropolis hasting chain as well.
 """
 function opt_restart!(this::SA)
-    empty!(this.mhc)
+    empty!(this.mhc, this.x_star)
     this.distr_values = this.mhc.values  # link 
-    this.distr_values = this.obj_fxn(this.mhc.x0)  
+    push!(this.obj_values, this.opt)
+
     return this 
 end
 

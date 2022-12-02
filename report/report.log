@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  27 NOV 2022 20:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  2 DEC 2022 12:52
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -533,27 +533,29 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 \c@lstlisting=\count324
+ (/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.bbl
 
-No file report.bbl.
-[1
+LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.aux)
+) [1
+
+{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] (/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.aux)
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 78A2E09EE07A292099B09233EA9C64F7;814.
+(rerunfilecheck)             Checksum: 0BFFC6AE5E5A2114F8043206FE7003DF;2193.
  ) 
 Here is how much of TeX's memory you used:
- 14686 strings out of 478994
- 220262 string characters out of 5858183
- 562294 words of memory out of 5000000
- 31950 multiletter control sequences out of 15000+600000
+ 14704 strings out of 478994
+ 220610 string characters out of 5858183
+ 563298 words of memory out of 5000000
+ 31957 multiletter control sequences out of 15000+600000
  409904 words of font info for 36 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 81i,5n,89p,740b,339s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 81i,5n,89p,740b,340s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm2074.pfb>
-Output written on /Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.pdf (1 page, 91638 bytes).
+Output written on /Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.pdf (2 pages, 99793 bytes).
 PDF statistics:
- 65 PDF objects out of 1000 (max. 8388607)
- 54 compressed objects within 1 object stream
- 7 named destinations out of 1000 (max. 500000)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 99 PDF objects out of 1000 (max. 8388607)
+ 87 compressed objects within 1 object stream
+ 16 named destinations out of 1000 (max. 500000)
+ 97 words of extra memory for PDF output out of 10000 (max. 10000000)
 

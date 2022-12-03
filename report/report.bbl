@@ -1,3 +1,13 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{book:rick_essential}
+R.~Durrett.
+\newblock {\em Essentials of Stochastic Processes}.
+\newblock Springer Texts in Statistics. Springer New York, 2012.
+
+\bibitem{book:robert_casella_2005}
+Christian~P. Robert and George Casella.
+\newblock {\em Monte Carlo Statistical Methods}.
+\newblock Springer, 2005.
 
 \end{thebibliography}

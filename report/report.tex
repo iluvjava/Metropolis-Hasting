@@ -67,7 +67,7 @@
     commentstyle     = \color{ForestGreen},
     showstringspaces = false,
 }
-\title{MonteCarlo Markov Chain and Simulated Annealing with Applications and Implementations}
+\title{Markov Chain Monte Carlo and Simulated Annealing with Applications and Implementations}
 \author{Hongda Li}
 
 \begin{document}
@@ -78,20 +78,85 @@
 
 \numberwithin{equation}{subsection}
 \section{Introduction}
-    
+    Metropolis Hasting is a type of Markov Chain Monte Carlo (MCMC) method. It uses the convergence of a Markov chain to sample from a distribution. For motivations, it's easy to sample from a 1D distribution function if we have the inverse of the CDF, however, in general, it's very hard to sample from a high-dimension distribution even if we have the PDF function. 
+    \par
+    The Metropolis Hasting Chain (MHC) is a type of Markov chain whose stationary distribution equals the targeted distribution function. In this report, we are interested in the theoretical foundations for MHC and its applications. Additionally, we are also interested in understanding Simulated Annealing (SA) using stochastic processes. 
+    \begin{definition}[Stationary distributions]
+        Let $p(x, y)$ be a transition kernel for a Markov chain with state space that is countable, then $\pi$ is said to be a stationary distribution for $p$ if it satisfies: 
+        \begin{align*}
+            \pi(y) = \sum_{x\in S}p(x, y)\pi(x) \quad \forall y \in S. 
+        \end{align*}
+    \end{definition}
+    \begin{definition}[Detailed balance]
+        Let $p(x, y)$ be the transition kernel for a Markov chain with state space $S$ which is countable, then the distribution $\pi$ satisfies detailed balance if: 
+        \begin{align*}
+            \pi(y)p(y, x) = \pi(x)p(x, y) \forall x, y\in S. 
+        \end{align*}
+    \end{definition}
+    \begin{remark}
+        Take note that we did in class that if a Markov chain has a distribution such that it satisfies detailed balance, then the distribution is going to be the stationary distribution for the Markov chain.     
+    \end{remark}
 
 \section{Preliminaries}\label{sec:preliminaries}
-    
-\section{Metropolish Hasting and Its Convergence}
-    \subsection{The Discrete Case}
-    \subsection{The Continuous Case}
-    \subsection{Numerical Experiments}
+    \begin{theorem}[Convergence to stationary distributions]\label{thm:cvg_sta_distr}
+        Let $(X_n)_{n\ge 0}$ be a discrete Markov chain with countable/finite state space $S$. Assuming that it's irreducible, aperiodic, and has a stationary distribution $\pi$, then as $n\rightarrow \infty$, we have $p^n(x, y) = \pi(y)$. 
+    \end{theorem}
+    \begin{proof}
+        The theorem is listed as theorem 1.19 in Rick's book \cite{book:rick_essential}. 
+    \end{proof}
+    \begin{remark}
+        This theorem plays a central role in understanding the regularity conditions for the convergence properties of MHC. Moreover, we skip the discussion regarding the case when the Markov chain has a state space that is uncountable in this report. For more details about the analysis of the ergodic theorem, see chapter 6 of the book by Robert, Casella \cite{book:robert_casella_2005}. 
+    \end{remark}
+    \subsection{Metropolis Hasting chain and its convergence}
+        In this subsection, we present the proof and theoretical foundations for the convergence of the MHC when the underlying state space is countable. We seek the answer following questions: 
+        \begin{itemize}
+            \item [1.] What is the MHC? 
+            \item [2.] What are the regularity conditions that can assert that the stationary distribution is equal to the targeted distribution? 
+            \item [3.] What we the regularity conditions imply about the choices of a base chain when it comes to actual applications? 
+        \end{itemize}
+        The quantities in \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} has the following quantities and their expectations: 
+        \begin{itemize}
+            \item [1.] $q(x|y)$ is the base chain, and it should be defined on $S$. 
+            \item [2.] $f(x): S \mapsto \mathbb R_+$ is a probability mass function on the state space $S$.
+            \item [3.] $\rho$ is the acceptance function, given $X^{(t)}$, it decides whether to accept $Y^{(t + 1)}$ from $q$. 
+        \end{itemize}
+        \begin{algorithm}
+            \begin{algorithmic}[1]
+                \STATE{\textbf{Input: $X^{(t)}$} }
+                \STATE{$Y^{(t)} \sim q (\cdot | x^{(t)})$}
+                \STATE{
+                    $
+                    X^{(t + 1)} := 
+                    \begin{cases}
+                        Y^{(t)} & \text{w.p}:  \rho(X^{(t)}, Y^{(t)})
+                        \\
+                        X^{(t)} &  \text{else}
+                    \end{cases}$
+                }
+                \STATE{
+                    $ 
+                    \rho(x, y) := 
+                    \min\left\lbrace
+                        \frac{f(y)}{f(x)}\frac{q(x|y)}{q(y|x)}, 1
+                    \right\rbrace
+                    $ 
+                }
+            \end{algorithmic}
+            \caption{Metropolis Chain}
+            \label{alg:mhc}
+        \end{algorithm}
+    \begin{theorem}[Staiontary distribution for the MHC]
+        The support set of $f$, denoted with $\text{supp}(f)$ satisfies detailed balance if the base chain $q(x|y)$ is non-negative for all $x, y\in S$, then the MHC has the support sets of $f$ as the stationary distributions. 
+    \end{theorem}
 
-\section{Simulated Annealing}
-    \subsection{The Limit of Temperature}
+    \subsection{The discrete case}
+    \subsection{Numerical experiments}
 
-\subsection{Solving the Knapsack Problem}
-    \subsection{Best Base Chain to Avoid Curse of Dimensionality}
+\section{Simulated annealing}
+    \subsection{The limit of temperature}
+
+\subsection{Solving the knapsack problem}
+    \subsection{Best base chain to avoid curse of dimensionality}
     \subsection{Numerical Experiments}
 
 \appendix

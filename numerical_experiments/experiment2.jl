@@ -2,7 +2,7 @@
 ### of Uniform Distributions on the Box. 
 
 include("../src/core.jl")
-using Plots, Distributions, LinearAlgebra
+using Plots, Distributions, LinearAlgebra, IterTools
 
 # directory for saving. 
 if !isdir("results")
@@ -60,43 +60,49 @@ Run the experiments.
 function run_experiment(
     bc::Function, 
     file_name::String="",
-    samples::Int=1000000
+    partition_size=5000,
+    partitions_cout=3, 
 )
     """
     The distributions functions we are sampling from. 
     """
     function f(x)
-        if norm(x) < 1
-            return sin(x[1]*4pi) + cos(x[2]*4pi) + 2
+        x1 = x[1]
+        x2 = x[2]
+        if -sin(4pi*x1) + 2sin(2pi*x2)^2 > 1.5
+            return sin(x1*4pi) + cos(x2*4pi) + 2
         end
         return 0
     end
-    
-    mhc = MHC((x)-> f(x), bc, [0, 0])
-    points = [mhc() for _ in 1:samples]
-    xs = [point[1] for point in points]
-    ys = [point[2] for point in points]
-    fig = histogram2d(
-        xs, ys,
-        c = :grays,
-        nbins = 100,
-        show_empty_bins = :true
-    )
-    fig |> display
-    if file_name != ""
-        savefig(fig, "results/"*file_name)
-
+    # samples = partition_size*partitions_cout
+    samples = 100000
+    mhc = MHC((x)-> f(x), bc, [-1/8, 1/8])
+    points = [mhc() for _ in 1:samples]|>unique|>collect
+    for i in 1:partitions_cout
+        xs = [point[1] for point in points[1: i*partition_size]]
+        ys = [point[2] for point in points[1: i*partition_size]]
+        fig = histogram2d(
+            xs, ys,
+            c = :acton,
+            nbins = 100,
+            show_empty_bins = :true
+        )
+        fig |> display
+        if file_name != ""
+            savefig(fig, "results/"*file_name*"($(i))")
+        end
     end
+
     return mhc
 end
 
-mhc1 = run_experiment("uniform_base", 100000) do x
+mhc1 = run_experiment("uniform_base") do x
     return unif_sampler_2d((-1, -1), (1, 1))
 end
 "The rejection rate is: $(mhc1.rejected/mhc1.k)"
 
-mhc2 = run_experiment("gaussian_base", 100000) do x
-    return wrapped_gaussian_sampler_2d(x, (-1, -1), (1, 1), sigma=0.5)
+mhc2 = run_experiment("gaussian_base") do x
+    return wrapped_gaussian_sampler_2d(x, (-1, -1), (1, 1), sigma=0.1)
 end
 "The rejection rate is: $(mhc2.rejected/mhc2.k)"
 

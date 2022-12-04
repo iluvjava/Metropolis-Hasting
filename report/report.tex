@@ -9,6 +9,7 @@
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{bbm}
+\usepackage{stmaryrd}
 % \usepackage{minted}
 % Basic Type Settings ----------------------------------------------------------
 \usepackage[margin=1in,footskip=0.25in]{geometry}
@@ -74,7 +75,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-    In this report, we prove the fundamentals for the convergence of the Metropolis Hasting Chain under the discrete case; then introduce some ideas from the continuous case. We discuss the Simulated Annealing algorithm as a particular case of the Metropolis Hasting and use both algorithms to construct several numerical experiments in Julia. The first experiment is sampling from complicated distribution functions on 2D, the second is applying Simulated Annealing for the knapsack problem, and in the third experiment, we test simulated Annealing on the Rastrigin function using different base chains. We collect data and illustrate the behaviors of these algorithms. 
+    In this report, we prove the fundamentals for the convergence of the Metropolis Hasting Chain(MHC) under the discrete case; we only mention and list resources for the continuous case. We discuss the Simulated Annealing algorithm(SA) as a particular case of the Metropolis Hasting and use both algorithms for numerical experiments in Julia. The first experiment is sampling from complicated distribution functions on 2D, the second is applying Simulated Annealing for the knapsack problem, and in the third experiment, we test simulated Annealing on the Rastrigin function using different base chains. We collect data and illustrate the behaviors of these algorithms. 
 \end{abstract}
 
 \numberwithin{equation}{subsection}
@@ -304,7 +305,7 @@
                 \\
                 &= \mathbbm 1\{X^+\}. 
             \end{align*}
-            Take note that the assumption I made here is stronger than it needs to be and might still converge for MHC with a continuous distribution. For more detail about the limiting behavior of the distribution function as $T\rightarrow 0$, see chapter 3 of the book by Levin et al. \cite {book:mkv_mix_time} for more details. 
+            Take note that the assumption I made here is stronger than it needs to be; it might still converge for MHC with a continuous distribution. For more detail about the limiting behavior of the distribution function as $T\rightarrow 0$, see chapter 3 of the book by Levin et al. \cite {book:mkv_mix_time} for more details. 
         \end{proof}
         To illustrate the process of changing temperature, we make an example involving $g(x) = \text{sinc}(x)$ and choose temperatures from $1$ to $10^{-2}$ geometrically distributed. Then we plot the normalized function $f(x):= \exp(\text{sinc}(x)/T_i)$ on the interval $[-3, 3]$ and it produces figure \ref*{fig:sa_temp}. Observe that the function's maximum accentuates as the temperature gets lower, which means that the MHC is more likely to reject states with lower values and climb more aggressively than when the temperature is still high. 
         \begin{figure}[H]
@@ -325,9 +326,29 @@
     \begin{align*}
         \max \langle w, x\rangle \text{ s.t: } \langle w, x\rangle \le 1, x\in \{1, 0\}^n. 
     \end{align*}
-    We look for a subset of numbers of the vector $w$ $1$ such that it sums up as close to one as possible while not exceeding one. This problem can be approached with SA. 
-    \subsection{Best base chain to avoid the curse of dimensionality}
-        The bin packing problem suffers from 
+    We look for a subset of numbers of the vector $w$ $1$ such that it sums up as close to one as possible while not exceeding one. We can solve this problem with SA, and the state space of the MHC will be $S:= \{0, 1\}^n$, a binary vector with length n with the objective function $g(x)$ defined as: 
+    \begin{align*}
+        g(x) &:= \begin{cases}
+            \langle w, x\rangle & \text{if }\langle w, x\rangle\le 1,
+            \\
+            -\infty & \text{else}. 
+        \end{cases}
+        \\
+        f(x) &:= \exp(g(x)/T_i), 
+    \end{align*}
+    where $f$ will be our target distribution. 
+    \subsection{Best base chain that avoids the curse of dimensionality}
+        Consider a case where all pairwise sum of elements in $x$ exceeds $1$; then it is implied that all feasible solutions $x$ have to have less than one $1$ in them. Suppose one chose a uniform random base chain, let $\epsilon_i \sim \text{Bernoulli}(1/2) \; \forall 1 \le i \le n$, $\epsilon \in \{0, 1\}$ and suppose that the $\llbracket\cdot \rrbracket$ denotes the equivalent classes under modulo of two. It applies to each element of a vector. Let $e_i$ denote the ith standard basis vector. The doubly stochastic base chain $q(x|y)$ would be given by: 
+        \begin{align*}
+           q(Y|x) = \mathbb P\left(
+            Y = \sum_{i = 1}^{n} \llbracket x + \epsilon \rrbracket e_i
+           \right)
+        \end{align*}
+        and this is equivalent to choosing each of the bits in the vector $x$ and flipping it. Assuming that we start with a feasible solution $x = \mathbf 0$ and only solutions $x$ such that it has less than one $1$ in it are feasible. As a result, the probability of transition from $\mathbf 0$ to that feasible solution has a probability of $\mathbb P (\text{binomial}(1/2, n) \le 1) = (n + 1)(1/2)^{n}$ because we would need to either remain at state $x = \mathbf 0$ or change exactly one of the bits to keep the solution feasible. The Probability of obtaining the first feasible solution approaches zero as $n$ increases. Therefore, this choice of the base chain is bad if the set of feasible solutions is small relative to the whole space $\{0, 1\}^n$. To reduce the variance, we propose a random variable $\eta$ that uniformly distributes in $\{1, \cdots, n\}$, then the chain: 
+        \begin{align*}
+            q(Y|x) := \mathbb P(Y=\llbracket x + e_\eta\rrbracket),
+        \end{align*}
+        would be a better choice. However, this compromises our ability to jump from point to point for the MHC, making these base chain types inappropriate if we want to sample from a $f$ whose support set is not necessarily continuous. 
     \subsection{Numerical Experiments}
 
 \appendix

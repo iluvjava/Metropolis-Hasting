@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  4 DEC 2022 17:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  4 DEC 2022 18:08
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -896,20 +896,20 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 [8
 
 ]
-<gaussian_base(1).png, id=141, 602.25pt x 401.5pt>
+<gaussian_base(1).png, id=147, 602.25pt x 401.5pt>
 File: gaussian_base(1).png Graphic file (type png)
 <use gaussian_base(1).png>
-Package pdftex.def Info: gaussian_base(1).png  used on input line 161.
+Package pdftex.def Info: gaussian_base(1).png  used on input line 160.
 (pdftex.def)             Requested size: 99.58464pt x 66.38554pt.
-<gaussian_base(2).png, id=142, 602.25pt x 401.5pt>
+<gaussian_base(2).png, id=148, 602.25pt x 401.5pt>
 File: gaussian_base(2).png Graphic file (type png)
 <use gaussian_base(2).png>
-Package pdftex.def Info: gaussian_base(2).png  used on input line 161.
+Package pdftex.def Info: gaussian_base(2).png  used on input line 160.
 (pdftex.def)             Requested size: 99.58464pt x 66.38554pt.
-<gaussian_base(3).png, id=143, 602.25pt x 401.5pt>
+<gaussian_base(3).png, id=149, 602.25pt x 401.5pt>
 File: gaussian_base(3).png Graphic file (type png)
 <use gaussian_base(3).png>
-Package pdftex.def Info: gaussian_base(3).png  used on input line 161.
+Package pdftex.def Info: gaussian_base(3).png  used on input line 160.
 (pdftex.def)             Requested size: 99.58464pt x 66.38554pt.
 
 Overfull \hbox (15.30496pt too wide) has occurred while \output is active
@@ -918,7 +918,124 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 
 [9
 
- </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/gaussian_base(1).png> </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/gaussian_base(2).png> </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/gaussian_base(3).png>] (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.bbl
+ </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/gaussian_base(1).png> </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/gaussian_base(2).png> </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/gaussian_base(3).png>]
+<uniform_base(1).png, id=157, 602.25pt x 401.5pt>
+File: uniform_base(1).png Graphic file (type png)
+<use uniform_base(1).png>
+Package pdftex.def Info: uniform_base(1).png  used on input line 169.
+(pdftex.def)             Requested size: 99.58464pt x 66.38554pt.
+<uniform_base(2).png, id=158, 602.25pt x 401.5pt>
+File: uniform_base(2).png Graphic file (type png)
+<use uniform_base(2).png>
+Package pdftex.def Info: uniform_base(2).png  used on input line 169.
+(pdftex.def)             Requested size: 99.58464pt x 66.38554pt.
+<uniform_base(3).png, id=159, 602.25pt x 401.5pt>
+File: uniform_base(3).png Graphic file (type png)
+<use uniform_base(3).png>
+Package pdftex.def Info: uniform_base(3).png  used on input line 169.
+(pdftex.def)             Requested size: 99.58464pt x 66.38554pt.
+
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[10
+
+ </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/uniform_base(1).png> </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/uniform_base(2).png> </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/uniform_base(3).png>]
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[11
+
+]
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[12
+
+]
+<sa_temp.png, id=179, 562.2606pt x 421.575pt>
+File: sa_temp.png Graphic file (type png)
+<use sa_temp.png>
+Package pdftex.def Info: sa_temp.png  used on input line 212.
+(pdftex.def)             Requested size: 227.62204pt x 170.66617pt.
+
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[13
+
+ </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/sa_temp.png (PNG copy)>]
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[14
+
+]
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[15
+
+]
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[16
+
+]
+<sa_experiment1.png, id=205, 602.25pt x 401.5pt>
+File: sa_experiment1.png Graphic file (type png)
+<use sa_experiment1.png>
+Package pdftex.def Info: sa_experiment1.png  used on input line 249.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[17
+
+ </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/sa_experiment1.png>]
+<sa_experiment2.png, id=212, 602.25pt x 401.5pt>
+File: sa_experiment2.png Graphic file (type png)
+<use sa_experiment2.png>
+Package pdftex.def Info: sa_experiment2.png  used on input line 256.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[18
+
+ </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/sa_experiment2.png>]
+<sa_experiment3.png, id=219, 602.25pt x 401.5pt>
+File: sa_experiment3.png Graphic file (type png)
+<use sa_experiment3.png>
+Package pdftex.def Info: sa_experiment3.png  used on input line 263.
+(pdftex.def)             Requested size: 240.89572pt x 160.59715pt.
+
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[19
+
+ </Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/sa_experiment3.png>]
+Overfull \hbox (15.30496pt too wide) has occurred while \output is active
+ [][][][]  
+ []
+
+[20
+
+] (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.bbl
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `\translate ' on input line 3.
@@ -928,7 +1045,7 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
  [][][][]  
  []
 
-[10
+[21
 
 ]
 \tf@nav=\write6
@@ -942,21 +1059,21 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 
  (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.aux)
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: A90B8854C3F79DBCBD416EA9AEAF7FA9;493.
+(rerunfilecheck)             Checksum: 631D8E919E1E76FDB99667E4CA2BA3FD;730.
  ) 
 Here is how much of TeX's memory you used:
- 22225 strings out of 478994
- 409273 string characters out of 5858183
+ 22336 strings out of 478994
+ 410815 string characters out of 5858183
  691080 words of memory out of 5000000
- 39170 multiletter control sequences out of 15000+600000
- 412145 words of font info for 59 fonts, out of 8000000 for 9000
+ 39247 multiletter control sequences out of 15000+600000
+ 416029 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  131i,20n,132p,495b,748s stack positions out of 5000i,500n,10000p,200000b,80000s
- </Users/hongdali/Library/texlive/2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on /Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.pdf (10 pages, 190017 bytes).
+ </Users/hongdali/Library/texlive/2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on /Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.pdf (21 pages, 377930 bytes).
 PDF statistics:
- 210 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
- 27 named destinations out of 1000 (max. 500000)
- 222 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 301 PDF objects out of 1000 (max. 8388607)
+ 222 compressed objects within 3 object streams
+ 50 named destinations out of 1000 (max. 500000)
+ 265 words of extra memory for PDF output out of 10000 (max. 10000000)
 

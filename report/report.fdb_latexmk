@@ -1,14 +1,14 @@
 # Fdb version 3
-["bibtex report"] 1670189003 "report.aux" "report.bbl" "report" 1670200646
+["bibtex report"] 1670189003 "report.aux" "report.bbl" "report" 1670205627
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/base/plain.bst" 1292289607 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   "refs.bib" 1670188988 1970 a82c90652631fe4e3bc8499c9d1f1215 ""
-  "report.aux" 1670200645 4609 7c5d91d08a98e2512a9518d5096a3261 "pdflatex"
+  "report.aux" 1670205627 4609 7c5d91d08a98e2512a9518d5096a3261 "pdflatex"
   (generated)
   "report.bbl"
   "report.blg"
-["pdflatex"] 1670200644 "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.tex" "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.pdf" "report" 1670200646
-  "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.aux" 1670200645 4609 7c5d91d08a98e2512a9518d5096a3261 ""
-  "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.tex" 1670199952 28915 dd7465b182e82fd1950a6629395d0810 ""
+["pdflatex"] 1670205626 "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.tex" "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.pdf" "report" 1670205627
+  "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.aux" 1670205627 4609 7c5d91d08a98e2512a9518d5096a3261 ""
+  "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.tex" 1670205626 28904 d61128d7edbdddb983eedc0207052c31 ""
   "/Users/hongdali/Library/texlive/2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm12.600pk" 1652209795 8424 d1539fe1cc54fd79f1d3894829b2d910 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -166,10 +166,10 @@
   "gaussian_base(1).png" 1670108599 18953 61ca9bad42d07356849c49972903cd0d ""
   "gaussian_base(2).png" 1670108599 22527 7d7f828fba0e73e4c9192536db6c8ef4 ""
   "gaussian_base(3).png" 1670108599 23227 93e7ff3e14d91139af0b9e65afefdb24 ""
-  "report.aux" 1670200645 4609 7c5d91d08a98e2512a9518d5096a3261 "pdflatex"
+  "report.aux" 1670205627 4609 7c5d91d08a98e2512a9518d5096a3261 "pdflatex"
   "report.bbl" 1670189003 991 3fc9f3303d51734f01c1b4fe95f7139b "bibtex report"
-  "report.out" 1670200645 2053 1b448f0bb637cabde6d4ef3ae8253f0f "pdflatex"
-  "report.tex" 1670199952 28915 dd7465b182e82fd1950a6629395d0810 ""
+  "report.out" 1670205627 2053 1b448f0bb637cabde6d4ef3ae8253f0f "pdflatex"
+  "report.tex" 1670205626 28904 d61128d7edbdddb983eedc0207052c31 ""
   "sa_experiment1.png" 1670186862 39034 ccffb10e744d69ff40252b27e0b4c932 ""
   "sa_experiment2.png" 1670186862 28483 959feff99866452e7f3f21d990031180 ""
   "sa_experiment3.png" 1670186862 14376 a219d28f9fe9b0d2e8d1c77ebf2a1322 ""
@@ -179,8 +179,8 @@
   "uniform_base(3).png" 1670108599 23305 becf81fa1d37e37c6eb0f90ac45ae3f1 ""
   (generated)
   "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.log"
-  "report.aux"
-  "report.log"
   "/Users/hongdali/Desktop/repos/Metropolis-Hasting/report/report.pdf"
-  "report.out"
   "report.pdf"
+  "report.aux"
+  "report.out"
+  "report.log"

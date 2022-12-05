@@ -5,6 +5,11 @@
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{graphicx}
+\usepackage{amsrefs}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{bbm}
+
 \DeclareMathOperator {\argmin}{argmin}
 
 \author{Hongda Li}
@@ -40,91 +45,112 @@
 \end{frame}
 
 \section{Introduction}
-    \begin{frame}{Introdução}
-        Texto referente à introdução.
-    \end{frame}
 
-\section{Conteúdo}
-    \begin{frame}{Definition, Theorems and Corollaries}
-        \begin{block}{Definição 2.1.1}
-        Aqui temos uma nova definição.
+    \begin{frame}{The MHC}
+        \begin{block}{MHC: Metropolis Hasting Chain}
+            \begin{algorithmic}[H]
+                \STATE{\textbf{Input: $X^{(t)}$}}
+                \STATE{$Y^{(t)} \sim q (\cdot | x^{(t)})$}
+                \STATE{
+                    $ 
+                    \rho(x, y) := 
+                    \min\left\lbrace
+                        \frac{f(y)}{f(x)}\frac{q(x|y)}{q(y|x)}, 1
+                    \right\rbrace
+                    $ 
+                }
+                \STATE{
+                    $
+                    X^{(t + 1)} := 
+                    \begin{cases}
+                        Y^{(t)} & \text{w.p}:  \rho(X^{(t)}, Y^{(t)})
+                        \\
+                        X^{(t)} &  \text{else}
+                    \end{cases}$
+                }
+            \end{algorithmic}
         \end{block}
-
-        \begin{block}{Teorema 2.1.2}
-        Aqui temos um novo teorema.
-        \end{block}
-
-        \begin{block}{Exemplo 2.1.3}
-        Aqui temos um novo exemplo.
-        \end{block}
-
-        \begin{block}{Corolário 2.1.4}
-        Aqui temos um novo corolário.
-        \end{block}
-    \end{frame}
-    \begin{frame}{Citation and References}
-        Livro de Análise Real~\cite{lima2004analise}
-    \end{frame}
-
-    \begin{frame}{Listas}
-        Exemplo de lista com símbolos:
         \begin{itemize}
-            \item Primeiro elemento
-            \item Segundo elemento
-        \end{itemize}
-        \bigskip
-        Exemplo de lista com itens enumerados:
-        \begin{enumerate}
-            \item Primeiro elemento
-            \item Segundo elemento
-        \end{enumerate}
-    \end{frame}
-    \begin{frame}{Tabelas}
-        A Tabela mostra um modelo de tabela.
-        \begin{table}[htb]
-            \caption{Exemplo de tabela}
-            \label{tab:modelo_tabela}
-            \centering
-            \begin{tabular}{c|c|c|c}
-                \hline
-                \textbf{Pessoa} & \textbf{Idade} & \textbf{Peso} & \textbf{Altura} \\ \hline
-                Marcos & 26    & 68   & 178    \\ \hline
-                Ivone  & 22    & 57   & 162    \\ \hline
-                Sueli  & 40    & 65   & 153    \\ \hline
-            \end{tabular}
-
-            \medskip
-
-            Fonte: Produção do próprio autor.
-        \end{table}
-    \end{frame}
-    \begin{frame}{Imagens}
-        A Figura mostra a logomarca promocional da Universidade Federal do Espírito Santo (UFES).
-        \begin{figure}[htb]
-            \medskip
-
-            Fonte: Produção do próprio autor.
-        \end{figure}
-    \end{frame}
-    \begin{frame}{Conclusão}
-        Texto referente à conclusão.
-    \end{frame}
-    \begin{frame}{Trabalhos futuros}
-        \begin{itemize}
-            \item Estudar $\ldots$
-            \medskip
-            \item Explorar $\ldots$
-            \medskip
-            \item Analisar $\ldots$
+            \item [1.] $q(x|y)$ is doubly stochastic. 
+            \item [2.] $f(x)$ is a distribution function up to a constant. 
+            \item [3.] Must have $f(X^{(t)}) > 0$. 
         \end{itemize}
     \end{frame}
-
-\section{Referências}
-    \begin{frame}{Referências}
-        \bibliography{referencias}
+    \begin{frame}{What it does}
+        Let $X^{(t)}$ be a sequence of observations sampled from the MHC, then $X^{(t)}$ will approximate $f$. 
+        \begin{itemize}
+            \item [1.] No integrals are needed. 
+            \item [2.] It works very well for distribution functions in a very high dimension. 
+            \item [3.] It is not hard to implement it on a computer. 
+        \end{itemize}
     \end{frame}
-    \begin{frame}
-        end
+    \begin{frame}{Primary questions}
+        We have questions: 
+        \begin{itemize}
+            \item Is $f$ a stationary distribution for the MHC? 
+                \begin{itemize}
+                    \item Yes. 
+                \end{itemize}
+            \item Does it converge to the stationary distributions $f$? 
+            \begin{itemize}
+                \item Sometimes. We need some regularity conditions. 
+            \end{itemize}
+        \end{itemize}
+        \vspace{2em}
+        To converge to $f$ the MHC must satisfy the following: 
+        \begin{itemize}
+            \item [1.] $f$ is a stationary distribution of the MHC. 
+            \item [2.] All states in $\text{supp}(f)$ can be commuted with each other. (f-Irreducible)
+            \item [3.] All states are aperiodic. 
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{The transition kernel}
+        \begin{block}{The transition kernel for MHC}
+            \begin{align*}
+                K(x, y) = 
+                \rho(x, y)q(y|x) + 
+                \left(
+                    1 - \underbrace{\sum_{z \in S\setminus \{y\} }^{}\rho(x, z)q(z|x)}_{=:r(x)}
+                \right) \mathbbm 1\{y = x\}. 
+            \end{align*}
+        \end{block}
+        \begin{itemize}
+            \item [1.] When $q$ is doubly stochastic, $f$ satisfies detail balance. ($f$-stationary)
+            \item [2.] We have $K(x,x)> 0$ for all $x$ such that $f(x) > 0$. It is aperiodic. 
+            \item [3.] It is f-irreducible if we assume $q(x|y)$ is non-negative for all $x, y\in \text{supp}(f)$. 
+            \item [4.] See Robert and Casella's book \cite{book:robert_casella_2005} for the case where state space is continuous. 
+        \end{itemize}
+    \end{frame}
+    \begin{frame}{Regularity conditions}
+        \begin{itemize}
+            \item [1.] $X^{(t)}$ needs to be able to travel to all states in $x\in \text{supp}(f)$. 
+            \item [2.] And this is possible if $q(x|y) > 0 \;\forall x, y\in S$. 
+            \item [3.] Weaker conditions exist, and we might have to do that in a case-by-case basis. We need to have: 
+        \end{itemize}
+        \begin{align*}
+           \forall x,y \in S\times S \;\exists n < \infty: K^n(x, y) > 0. 
+        \end{align*}
+    \end{frame}
+
+\section{Numerical experiments, sampling}
+    \begin{frame}{Sampling}
+        The function we are sampling here is: 
+        \begin{align*}
+            D &:= \{(x_1, x_2): -\sin(4\pi x_1) + 2\sin(2\pi x_2)^2 > 1.5\}
+            \\
+            f(x) &:= \mathbbm 1_D (\sin(x_14\pi) + \cos(x_24\pi) + 2), 
+        \end{align*}
+        And we are considering 2 choices of base chain: 
+        \begin{itemize}
+            \item [1.] Base chain: 
+        \end{itemize}
+    \end{frame}
+
+    
+
+\section{References}
+    \begin{frame}{References}
+        \bibliography{refs.bib}
     \end{frame}
 
 \end{document}

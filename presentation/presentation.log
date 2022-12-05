@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  28 NOV 2022 13:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.12.17)  4 DEC 2022 16:46
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -593,31 +593,80 @@ Package: amsthm 2020/05/29 v2.20.6
 Package: inputenc 2020/08/01 v1.3d Input encoding file
 \inpenc@prehook=\toks44
 \inpenc@posthook=\toks45
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/amsrefs.sty
+Package: amsrefs 2013/03/07 v2.14
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/pcatcode.sty
+Package: pcatcode 2002/04/16 v1.04
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/ifoption.sty
+Package: ifoption 2002/03/04 v1.02
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/rkeyval.sty
+Package: rkeyval 2004/05/05 v1.08
+\@temptokenb=\toks46
+\rsk@toks=\toks47
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/textcmds.sty
+Package: textcmds 2012/08/02 v2.00
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsrefs/mathscinet.sty
+Package: mathscinet 2002/04/17 v1.05
+)
+\c@bib=\count322
+\@maxlabelwidth=\dimen284
+\c@bib@env=\count323
+\bib@dbfile=\read3
+\alpha@suffix=\count324
+\series@index=\count325
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count326
+\float@exts=\toks48
+\float@box=\box72
+\@float@everytoks=\toks49
+\@floatcapt=\box73
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks50
+\c@algorithm=\count327
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/algorithms/algorithmic.sty
+Package: algorithmic 2009/08/24 v0.1 Document Style `algorithmic'
+\c@ALC@unique=\count328
+\c@ALC@line=\count329
+\c@ALC@rem=\count330
+\c@ALC@depth=\count331
+\ALC@tlm=\skip64
+\algorithmicindent=\skip65
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/bbm-macros/bbm.sty
+Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
+LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
+(Font)                  U/bbm/m/n --> U/bbm/bx/n on input line 33.
+LaTeX Font Info:    Overwriting math alphabet `\mathbbmss' in version `bold'
+(Font)                  U/bbmss/m/n --> U/bbmss/bx/n on input line 35.
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count322
-\l__pdf_internal_box=\box72
+\l__color_backend_stack_int=\count332
+\l__pdf_internal_box=\box74
 ) (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.aux)
 \openout1 = `presentation.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -655,30 +704,24 @@ LaTeX Font Info:    ... okay on input line 32.
 
 (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count323
-\scratchdimen=\dimen284
-\scratchbox=\box73
-\nofMPsegments=\count324
-\nofMParguments=\count325
-\everyMPshowfont=\toks46
-\MPscratchCnt=\count326
-\MPscratchDim=\dimen285
-\MPnumerator=\count327
-\makeMPintoPDFobject=\count328
-\everyMPtoPDFconversion=\toks47
+\scratchcounter=\count333
+\scratchdimen=\dimen285
+\scratchbox=\box75
+\nofMPsegments=\count334
+\nofMParguments=\count335
+\everyMPshowfont=\toks51
+\MPscratchCnt=\count336
+\MPscratchDim=\dimen286
+\MPnumerator=\count337
+\makeMPintoPDFobject=\count338
+\everyMPtoPDFconversion=\toks52
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
- (/usr/local/texlive/2021/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 32.
+Package hyperref Info: Link coloring OFF on input line 37.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -686,64 +729,64 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count329
+\c@section@level=\count339
 )
-LaTeX Info: Redefining \ref on input line 32.
-LaTeX Info: Redefining \pageref on input line 32.
-LaTeX Info: Redefining \nameref on input line 32.
+LaTeX Info: Redefining \ref on input line 37.
+LaTeX Info: Redefining \pageref on input line 37.
+LaTeX Info: Redefining \nameref on input line 37.
  (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.out) (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.out)
 \@outlinefile=\write5
 \openout5 = `presentation.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 32.
+(Font)                  OT1/cmr/m/n --> OT1/cmss/m/n on input line 37.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 32.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 37.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 32.
+(Font)                  OT1/cmss/m/n --> OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 32.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 32.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 32.
+(Font)                  OT1/cmr/bx/n --> OT1/cmss/b/n on input line 37.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 32.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/m/n on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 32.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 32.
+(Font)                  OT1/cmss/bx/n --> OT1/cmss/m/n on input line 37.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 32.
+(Font)                  OT1/cmr/m/it --> OT1/cmss/m/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 32.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 32.
+(Font)                  OT1/cmr/bx/it --> OT1/cmss/m/it on input line 37.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 32.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 32.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/m/n on input line 37.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 32.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 37.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 32.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 32.
+(Font)                  OT1/cmss/b/n --> OT1/cmr/b/n on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 32.
+(Font)                  OT1/cmss/b/n --> OT1/cmss/b/n on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 32.
+(Font)                  OT1/cmss/m/n --> OT1/cmss/b/n on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 32.
+(Font)                  OT1/cmss/m/it --> OT1/cmss/b/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 32.
-LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 32.
+(Font)                  OT1/cmtt/m/n --> OT1/cmtt/b/n on input line 37.
+LaTeX Font Info:    Redeclaring symbol font `pureletters' on input line 37.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `normal'
-(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 32.
+(Font)                  OT1/cmss/m/it --> OT1/mathkerncmss/m/sl on input line 37.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 32.
+(Font)                  OT1/cmss/b/it --> OT1/mathkerncmss/m/sl on input line 37.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 32.
+(Font)                  OT1/mathkerncmss/m/sl --> OT1/mathkerncmss/bx/sl on input line 37.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -757,7 +800,7 @@ Dictionary: translator-numbers-dictionary, Language: English
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/translator/translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 ) (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.nav)
-Overfull \hbox (15.30496pt too wide) in paragraph at lines 32--32
+Overfull \hbox (15.30496pt too wide) in paragraph at lines 37--37
  [][][][]  
  []
 
@@ -776,6 +819,18 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 [2
 
 ]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 78.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
+File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
+)
 Overfull \hbox (15.30496pt too wide) has occurred while \output is active
  [][][][]  
  []
@@ -790,10 +845,6 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 [4
 
 ]
-
-LaTeX Warning: Citation `lima2004analise' on page 5 undefined on input line 67.
-
-
 Overfull \hbox (15.30496pt too wide) has occurred while \output is active
  [][][][]  
  []
@@ -801,6 +852,10 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 [5
 
 ]
+LaTeX Font Info:    Trying to load font information for U+bbm on input line 123.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/bbm-macros/ubbm.fd
+File: ubbm.fd 1999/03/15 V 1.2 Font definition for bbm font - TH
+)
 Overfull \hbox (15.30496pt too wide) has occurred while \output is active
  [][][][]  
  []
@@ -808,18 +863,6 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 [6
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 100.
- (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 100.
- (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on input line 100.
- (/usr/local/texlive/2021/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
-File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/mathkerncmss.
-)
 Overfull \hbox (15.30496pt too wide) has occurred while \output is active
  [][][][]  
  []
@@ -833,35 +876,17 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 
 [8
 
-]
+] (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.bbl
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\translate ' on input line 3.
+
+)
 Overfull \hbox (15.30496pt too wide) has occurred while \output is active
  [][][][]  
  []
 
 [9
-
-]
-Overfull \hbox (15.30496pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[10
-
-]
-No file presentation.bbl.
-
-Overfull \hbox (15.30496pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[11
-
-]
-Overfull \hbox (15.30496pt too wide) has occurred while \output is active
- [][][][]  
- []
-
-[12
 
 ]
 \tf@nav=\write6
@@ -874,25 +899,22 @@ Overfull \hbox (15.30496pt too wide) has occurred while \output is active
 \openout8 = `presentation.snm'.
 
  (/Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.aux)
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `presentation.out' has not changed.
-(rerunfilecheck)             Checksum: 17A1FDF30F0D04A4C16B7F2564BE6EB5;290.
+(rerunfilecheck)             Checksum: A90B8854C3F79DBCBD416EA9AEAF7FA9;493.
  ) 
 Here is how much of TeX's memory you used:
- 20810 strings out of 478994
- 390114 string characters out of 5858183
- 671146 words of memory out of 5000000
- 37806 multiletter control sequences out of 15000+600000
- 411086 words of font info for 54 fonts, out of 8000000 for 9000
+ 22019 strings out of 478994
+ 406001 string characters out of 5858183
+ 689087 words of memory out of 5000000
+ 38977 multiletter control sequences out of 15000+600000
+ 412145 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 131i,15n,132p,495b,602s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-Output written on /Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.pdf (12 pages, 73841 bytes).
+ 131i,20n,132p,495b,748s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </Users/hongdali/Library/texlive/2021/texmf-var/fonts/pk/ljfour/public/bbm/bbm10.657pk></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi8.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi9.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on /Users/hongdali/Desktop/repos/Metropolis-Hasting/presentation/presentation.pdf (9 pages, 134253 bytes).
 PDF statistics:
  199 PDF objects out of 1000 (max. 8388607)
- 139 compressed objects within 2 object streams
- 29 named destinations out of 1000 (max. 500000)
- 259 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 144 compressed objects within 2 object streams
+ 24 named destinations out of 1000 (max. 500000)
+ 207 words of extra memory for PDF output out of 10000 (max. 10000000)
 

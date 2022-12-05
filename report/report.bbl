@@ -1,5 +1,10 @@
 \begin{thebibliography}{1}
 
+\bibitem{article:julia}
+Jeff Bezanson, Stefan Karpinski, Viral~B Shah, and Alan Edelman.
+\newblock Julia: A fast dynamic language for technical computing.
+\newblock {\em arXiv preprint arXiv:1209.5145}, 2012.
+
 \bibitem{book:rick_essential}
 R.~Durrett.
 \newblock {\em Essentials of Stochastic Processes}.

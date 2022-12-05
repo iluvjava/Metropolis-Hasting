@@ -1,0 +1,14 @@
+% \bib, bibdiv, biblist are defined by the amsrefs package.
+\begin{bibdiv}
+\begin{biblist}
+
+\bib{book:robert_casella_2005}{book}{
+      author={Robert, Christian~P.},
+      author={Casella, George},
+       title={Monte carlo statistical methods},
+   publisher={Springer},
+        date={2005},
+}
+
+\end{biblist}
+\end{bibdiv}

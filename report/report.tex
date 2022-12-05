@@ -75,7 +75,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-    In this report, we prove the fundamentals for the convergence of the Metropolis Hasting Chain(MHC) under the discrete case; we only mention and list resources for the continuous case. We discuss the Simulated Annealing algorithm(SA) as a particular case of the Metropolis Hasting and use both algorithms for numerical experiments in Julia. The first experiment is sampling from complicated distribution functions on 2D, the second is applying Simulated Annealing for the knapsack problem, and in the third experiment, we test simulated Annealing on the Rastrigin function using different base chains. We collect data and illustrate the behaviors of these algorithms. 
+    In this report, we prove the fundamentals for the convergence of the Metropolis Hasting Chain(MHC) under the discrete case; we only mention and list resources for the continuous case. We discuss the Simulated Annealing algorithm(SA) as a particular case of the Metropolis Hasting and use both algorithms for numerical experiments in Julia \cite{article:julia}. The first experiment is sampling from complicated distribution functions on 2D, the second is applying Simulated Annealing for the knapsack problem, and in the third experiment, we test simulated Annealing on the Rastrigin function using different base chains. We collect data and illustrate the behaviors of these algorithms. The code that produces the results for the numerical experiments is on my personal Github: \href{https://github.com/iluvjava/Metropolis-Hasting}{here}. 
 \end{abstract}
 
 \numberwithin{equation}{subsection}
@@ -136,6 +136,14 @@
                 \STATE{\textbf{Input: $X^{(t)}$}}
                 \STATE{$Y^{(t)} \sim q (\cdot | x^{(t)})$}
                 \STATE{
+                    $ 
+                    \rho(x, y) := 
+                    \min\left\lbrace
+                        \frac{f(y)}{f(x)}\frac{q(x|y)}{q(y|x)}, 1
+                    \right\rbrace
+                    $ 
+                }
+                \STATE{
                     $
                     X^{(t + 1)} := 
                     \begin{cases}
@@ -143,14 +151,6 @@
                         \\
                         X^{(t)} &  \text{else}
                     \end{cases}$
-                }
-                \STATE{
-                    $ 
-                    \rho(x, y) := 
-                    \min\left\lbrace
-                        \frac{f(y)}{f(x)}\frac{q(x|y)}{q(y|x)}, 1
-                    \right\rbrace
-                    $ 
                 }
             \end{algorithmic}
             \caption{Metropolis Chain}
@@ -161,7 +161,11 @@
     \subsection{Transition kernel of MHC}
         Firstly, the transition kernel of the MHC is given by: 
         \begin{align*}
-            K(x, y) = \rho(x, y)q(y|x) + \left(1 - \underbrace{\sum_{y \in S}^{}\rho(x, y)q(y|x)}_{=:r(x)}\right) \mathbbm 1\{y = x\}. 
+            K(x, y) = 
+            \rho(x, y)q(y|x) + 
+            \left(
+                1 - \underbrace{\sum_{z \in S\setminus \{y\} }^{}\rho(x, z)q(z|x)}_{=:r(x)}
+            \right) \mathbbm 1\{y = x\}. 
         \end{align*}
         The above is direct from \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}}. 
         \begin{theorem}[Stationary distribution for the MHC]\label{thm:sat_distr}
@@ -344,15 +348,48 @@
             Y = \sum_{i = 1}^{n} \llbracket x + \epsilon \rrbracket e_i
            \right)
         \end{align*}
-        and this is equivalent to choosing each of the bits in the vector $x$ and flipping it. Assuming that we start with a feasible solution $x = \mathbf 0$ and only solutions $x$ such that it has less than one $1$ in it are feasible. As a result, the probability of transition from $\mathbf 0$ to that feasible solution has a probability of $\mathbb P (\text{binomial}(1/2, n) \le 1) = (n + 1)(1/2)^{n}$ because we would need to either remain at state $x = \mathbf 0$ or change exactly one of the bits to keep the solution feasible. The Probability of obtaining the first feasible solution approaches zero as $n$ increases. Therefore, this choice of the base chain is bad if the set of feasible solutions is small relative to the whole space $\{0, 1\}^n$. To reduce the variance, we propose a random variable $\eta$ that uniformly distributes in $\{1, \cdots, n\}$, then the chain: 
+        and this is equivalent to choosing each of the bits in the vector $x$ and flipping it. Assuming that we start with a feasible solution $x = \mathbf 0$ and only solutions $x$ such that it has less than one $1$ in it are feasible. As a result, the probability of transition from $\mathbf 0$ to a feasible solution is $\mathbb P (\text{binomial}(1/2, n) \le 1) = (n + 1)(1/2)^{n}$, because we would need to either remain at state $x = \mathbf 0$ or change exactly one of the bits to keep the solution feasible. The Probability of obtaining the first feasible solution approaches zero as $n$ increases. Therefore, this choice of the base chain is bad if the set of feasible solutions is small relative to the whole space $\{0, 1\}^n$. To reduce the variance, we propose a random variable $\eta$ that uniformly distributes in $\{1, \cdots, n\}$, then the chain: 
         \begin{align*}
             q(Y|x) := \mathbb P(Y=\llbracket x + e_\eta\rrbracket),
         \end{align*}
-        would be a better choice. However, this compromises our ability to jump from point to point for the MHC, making these base chain types inappropriate if we want to sample from a $f$ whose support set is not necessarily continuous. 
+        would be a better choice. It is also f-irreducible because we can mutate every ``1'' bit in $x$ to get to $\mathbf 0$, then there is a probability to get from $\mathbf 0$ to any $x$. 
     \subsection{Numerical Experiments}
+        Consider a list of i.i.d random variables uniformly sampled from $[0, 1]$, denoted using $W_i$. For our example, there are 99 of them. Then the sum: 
+        \begin{align*}
+           1 + \left(
+            \sum_{i = 1}^{99} w_{i + 1} - W_i
+           \right) + 1 - W_{99} = 1, 
+        \end{align*}
+        therefore, we make the first element of $w_1 = W_1$ and the last element $w_{100} = 1 - W_{99}$ and $w_i = W_{i + 1} - W_{i}$ for all $1 \le i \le 99$. The first 100 elements of $w$ sum up to an optimal solution. Next, we let $w_i$ for all $200 > i > 100$ to be an i.i.d random variable drawn from the uniform distribution on the interval $[1, 2]$. This means that any of the $w_i$ for $101 \le 200$ cannot be part of the solution because adding any of them more than once will make the solution infeasible. This 200 elements vector for the bin packing problem is our numerical experiment. In addition, we also consider three different temperature schedules for the SA experiment. 
+        \begin{itemize}
+            \item [1.] The temperature drops linearly from 1 to 0.001 every 1000 iterations, 10k iterations in total. 
+            \item [2.] The temperature is $exp(-k)$ where k goes from 0 to 10. It decreases every 1000 iterations in a total of 10k iterations. 
+            \item [3.] The temperature is $1/k^2$; it drops whenever the algorithm discovers a solution lower than all previous solutions for the objective function.
+        \end{itemize}
+        \hyperref[fig:sa_experiments]{figure \ref*{fig:sa_experiments}} shows the results. All the MHC can converge to the unique maximum. Moreover, observe that when the temperature is automatically scheduled, it converges to the optimal fastest. However, we would like to point out that there is no good schedule for every problem. In our experiment, all feasible solutions can be changed into optimal ones without decreasing the objective function's value. Suppose that $x^+$  is the optimal and $\bar x$ is a feasible solution, then mutating any of the first 100 bits of $\bar x$ keeps its feasibility and increases its objective value. However, for the bin packing problem, this is not true in general; the algorithm could be stuck in a local optimal instead. 
+        \begin{figure}[H]
+            \centering
+            \begin{subfigure}{0.3\textwidth}
+                \includegraphics[width=\textwidth]{sa_experiment1.png}
+                \caption{Temperature with a linear schedule. }
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.3\textwidth}
+                \includegraphics[width=\textwidth]{sa_experiment2.png}
+                \caption{Temperature with an exponential schedule. }
+                % \label{fig:second}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.3\textwidth}
+                \includegraphics[width=\textwidth]{sa_experiment3.png}
+                \caption{When a better solution is identified, the temperature decreases. }
+                % \label{fig:third}
+            \end{subfigure}
+            \caption{The objective values for 10k iterations with different types of temperature schedules. }
+            \label{fig:sa_experiments}
+        \end{figure}
+        There are ways to combat the problem, and I would like to point out that if $q_1, 1_2$ are the kernels of two doubly stochastic chains, then their weighted sum $\alpha_1 q_1 + \alpha_2 q_2$ where $1 = \alpha_1 + \alpha_2$ is also doubly stochastic. This can be exploited to make a base chain that is robust to the curse of dimensionality while, at the same time, able to do short random walks locally. 
 
-\appendix
-\section{Bleeh Bleeh Bleeh I am not Listening}
 
 \bibliographystyle{plain}
 \bibliography{refs.bib}

@@ -9,6 +9,8 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 \usepackage{bbm}
+\usepackage{subfigure}
+
 
 \DeclareMathOperator {\argmin}{argmin}
 
@@ -134,18 +136,37 @@
 
 \section{Numerical experiments, sampling}
     \begin{frame}{Sampling}
-        The function we are sampling here is: 
+        The function we are sampling is: 
         \begin{align*}
             D &:= \{(x_1, x_2): -\sin(4\pi x_1) + 2\sin(2\pi x_2)^2 > 1.5\}
             \\
             f(x) &:= \mathbbm 1_D (\sin(x_14\pi) + \cos(x_24\pi) + 2), 
         \end{align*}
-        And we are considering 2 choices of base chain: 
+        on $[0, 1]\times [0, 1]$, and we are considering two choices of base chain: 
         \begin{itemize}
-            \item [1.] Base chain: 
+            \item [1.] A uniform random base chain, where it is just a random jump, is not a Markov chain. 
+            \item [2.] A wrapped Guassian random walks, where $Y^{(t + 1)} \sim \text{WrappedNormal}(X^{(t)}, 0.1)$. 
         \end{itemize}
     \end{frame}
-
+    \begin{frame}{The sampling results}
+        \begin{figure}
+            \centering
+            \includegraphics[width=3.5cm]{gaussian_base(1).png}
+            \includegraphics[width=3.5cm]{gaussian_base(2).png}
+            \includegraphics[width=3.5cm]{gaussian_base(3).png}
+            \caption{Snapshots of accumulated samples when a wrapped Gaussian random walk base chain. The sampling is not quite even. }
+            \label{fig:gaussian_rand_bc}
+        \end{figure}
+    \end{frame}
+    \begin{frame}{The sampling results}
+        \begin{figure}[h]
+            \centering
+            \includegraphics*[width=0.7\linewidth]{}
+            \caption{}
+            \label{}
+        \end{figure}
+        
+    \end{frame}
     
 
 \section{References}

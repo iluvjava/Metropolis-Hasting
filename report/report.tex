@@ -75,16 +75,16 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-    In this report, we prove the fundamentals for the convergence of the Metropolis Hasting Chain(MHC) under the discrete case; we only mention and list resources for the continuous case. We discuss the Simulated Annealing algorithm(SA) as a particular case of the Metropolis Hasting and use both algorithms for numerical experiments in Julia \cite{article:julia}. The first experiment is sampling from complicated distribution functions on 2D, the second is applying Simulated Annealing for the knapsack problem, and in the third experiment, we test simulated Annealing on the Rastrigin function using different base chains. We collect data and illustrate the behaviors of these algorithms. The code that produces the results for the numerical experiments is on my personal Github: \href{https://github.com/iluvjava/Metropolis-Hasting}{here}. 
+    In this report, we prove the fundamentals for the convergence of the Metropolis Hasting Chain(MHC) under the discrete case; we will mention and list resources for the continuous case. We discuss the Simulated Annealing algorithm(SA) as a particular case of the Metropolis Hasting and use both algorithms for numerical experiments in Julia \cite{article:julia}. The first experiment is sampling from complicated distribution functions on 2D, the second is applying Simulated Annealing for the knapsack problem, and in the third experiment, we test simulated Annealing on the Rastrigin function using different base chains. We collect data and illustrate the behaviors of these algorithms. The code that produces the results for the numerical experiments is on my GitHub: \href{https://github.com/iluvjava/Metropolis-Hasting}{here}. 
 \end{abstract}
 
 \numberwithin{equation}{subsection}
 \section{Introduction}
-    Metropolis Hasting is a Markov Chain Monte Carlo (MCMC) method. It uses the convergence of a Markov chain to sample from a distribution. For motivations, it is easy to sample from a 1D distribution function if we have the inverse of the CDF; however, it is generally tough to sample from a high-dimension distribution even if we have the PDF function. 
+    Metropolis Hasting is a Markov Chain Monte Carlo (MCMC) method. It converges to a targeted distribution. For motivations, it is easy to sample from a 1D distribution function if we have the inverse of the CDF; however, it is generally tough to sample from a high-dimension distribution even if we have the PDF function. 
     \par
     The Metropolis Hasting Chain (MHC) is a Markov chain whose stationary distribution equals the targeted distribution function. This report is interested in the theoretical foundations for MHC and its applications, and we are also interested in understanding Simulated Annealing (SA) using stochastic processes. 
     \begin{definition}[Stationary distributions]
-        Let $p(x, y)$ be a transition kernel for a Markov chain with state space that is countable, then $\pi$ is said to be a stationary distribution for $p$ if it satisfies: 
+        Let $p(x, y)$ be a transition kernel for a Markov chain with state space $S$ that is countable, then $\pi$ is said to be a stationary distribution for $p$ if it satisfies: 
         \begin{align*}
             \pi(y) = \sum_{x\in S}p(x, y)\pi(x) \quad \forall y \in S. 
         \end{align*}
@@ -108,28 +108,29 @@
 
 \section{Preliminaries}\label{sec:preliminaries}
     \begin{theorem}[Convergence to stationary distributions]\label{thm:cvg_sta_distr}
-        Let $(X_n)_{n\ge 0}$ be a discrete Markov chain with countable/finite state space $S$. Assuming it is irreducible, aperiodic with a stationary distribution $\pi$, then as $n\rightarrow \infty$, we have $p^n(x, y) = \pi(y)$. 
+        Let $(X_n)_{n\ge 0}$ be a discrete Markov chain with countable/finite state space $S$. Assuming it is irreducible, aperiodic with a stationary distribution $\pi$, then as $n\rightarrow \infty$, we have $p^n(x, y) = \pi(y)$; the stationary distribution is also unique. 
     \end{theorem}
     \begin{proof}
         The theorem is listed as theorem 1.19 in Rick's book \cite{book:rick_essential}. 
     \end{proof}
     \begin{remark}
-        This theorem plays a central role in understanding the regularity conditions for the convergence properties of MHC. Moreover, we skip the discussion regarding Markov chains with uncountable state space. For more details about the analysis of the ergodic theorem, see chapter 6 of the book by Robert and Casella \cite{book:robert_casella_2005}. 
+        This theorem plays a central role in understanding the regularity conditions for the convergence properties of MHC. Moreover, we skip the discussion regarding Markov chains with an uncountable state space. For more details about the ergodic theorem, see chapter 6 of the book by Robert and Casella \cite{book:robert_casella_2005}. 
     \end{remark}
     \subsection{Metropolis Hasting chain and its convergence}
-        In this subsection, we present the proof and theoretical foundations for the convergence of the MHC when the underlying state space is countable. We seek the answer following questions: 
+        In this subsection, we present the proof and theoretical foundations for the convergence of the MHC when the underlying state space is countable. We consider the following questions: 
         \begin{itemize}
             \item [1.] What is the MHC? 
-            \item [2.] For what regularity conditions can we assert that the stationary distribution is equal to the targeted distribution? 
+            \item [2.] For what regularity conditions can we assert that the stationary distribution is equal to the targeted distribution? If so, does it imply convergence to the distribution?
             \item [3.] What we the regularity conditions imply about the choices of a base chain when it comes to actual applications? 
         \end{itemize}
         We should apply the convergence theorem and analyze the MHC to answer the questions. 
     \subsection{The algorithm}
-        The quantities in \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} has the following quantities and their expectations: 
+        The quantities in \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} are listed below: 
         \begin{itemize}
             \item [1.] $q(x|y)$ is the base chain defined on $S$ and it has to be doubly stochastic meaning that $q(x|y) = q(y|x)$. 
             \item [2.] $f(x): S \mapsto \mathbb R_+$ is a probability mass function on the state space $S$.
             \item [3.] $\rho$ is the acceptance function, given $X^{(t)}$, it decides whether to accept $Y^{(t + 1)}$ from $q$. 
+            \item [4.] $X^{(t)}$ is a state given and it has to be the case that $f(X^{(t)}) > 0$. 
         \end{itemize}
         \begin{algorithm}
             \begin{algorithmic}[H]
@@ -149,7 +150,7 @@
                     \begin{cases}
                         Y^{(t)} & \text{w.p}:  \rho(X^{(t)}, Y^{(t)})
                         \\
-                        X^{(t)} &  \text{else}
+                        X^{(t)} &  \text{otherwise}
                     \end{cases}$
                 }
             \end{algorithmic}
@@ -178,7 +179,7 @@
                 \frac{f(y)}{f(x)}\frac{q(x|y)}{q(y|x)}, 1
                 \right\rbrace
                 \\
-                \implies
+                (*)\implies
                 \rho(x, y)f(x) &= \min\left\lbrace
                     f(y), f(x)
                 \right\rbrace, \rho(y, x) f(y) = 
@@ -196,27 +197,27 @@
                 \implies
                 K(x, y)f(x) &= K(y, x)f(y), 
             \end{align*}
-            when $x = y$, we have $1 - r(x)= 1 - r(y)$, which is just trivial. 
+            when $x = y$, we have $1 - r(x)= 1 - r(y)$, which is just trivial. At $(*)$ we used the doubly stochastic property of the base chain and $f(x), f(y)$ are strictly positive by the definition of the support set of $f$. Finally, we can never travel to a state that is not in $\text{supp}(f)$ by the definition of $\rho$. 
         \end{proof}
-        However, the above theorem does not guarantee that the Metropolis chain will converge to the distribution $f$. To converge, it has to be the case that the chain is irreducible on all states in the support set of $f$ (f-irreducible). To be irreducible on the set of $\text{supp}(f)$ means that for all $x, y \in \text{supp}(f), x \rightarrow y$, where $x\rightarrow y$ means that it is possible to commute from the state $x$ to $y$. In general, it is better to judge f-irreducible conditions on a case-by-case basis to determine the choice of the base chain. Nonetheless, the below theorem quantifies a stronger condition to assert the convergence. 
+        However, the above theorem does not guarantee that the Metropolis chain will converge to the distribution $f$. To converge, it has to be the case that the chain is irreducible on all states in the support set of $f$ (f-irreducible). To be irreducible on the set of $\text{supp}(f)$ means that for all $x, y \in \text{supp}(f), x \rightarrow y$, where $x\rightarrow y$ means that it is possible to communicate from the state $x$ to $y$. In general, it is better to judge f-irreducible conditions on a case-by-case basis to determine the choice of the base chain. Nonetheless, the below theorem quantifies a stronger condition to assert the convergence. 
         \begin{theorem}[Regularity conditions for the MHC]\label{thm:reg_cond}
             For a base chain that is non-negative, e.g., $q(x|y) > 0\; \forall x, y\in S\times S$, the MHC is f-irreducible. 
         \end{theorem}
         \begin{proof}
-            For all $f(x),f(y)>0$ with $x\neq 0$, we have $q(x|y) > 0$, and since $f(y)/f(x) > 0$, we have $\rho(x,y)$ being non-negative and therefore, it is possible to jump between any state in the support set for $f$. 
+            For all $f(x),f(y)>0$, we know $f(y)/f(x) > 0$, then we have $\rho(x,y)$ being non-negative and therefore, it is possible to jump between any state in the support set for $f$. 
         \end{proof}
         \begin{remark}
             Weaker conditions for the regularity conditions exist. For more detail, review Robert and Casella's book \cite{book:robert_casella_2005} in chapters 6 and 7, where it discusses the regularity conditions for the Markov chain with a continuous state space. 
             \par
-            In practice, we have to assess the irreducibility on a case-by-case basis for the best choice for the base chain. In most cases, we have no idea what the set $\text{supp}(f)$ even is and how it would be described. 
+            In practice, we have to assess the irreducibility on a case-by-case basis for the best choice for the base chain. In most cases, we have no idea what the set $\text{supp}(f)$ even is and how it would be described. And if that is the case, one will have to use the convex combinations of several base chains of different types together to make a base chain such that it satisfies f-irreducibility. 
         \end{remark}
         \begin{theorem}[Convergence of the Metropolis Chain]
-            The MHC described in \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} that satisfies \hyperref[thm:reg_cond]{theorem \ref*{thm:reg_cond}} and has a countable state space will converge to the stationary distributions $\text{supp}(f)$. 
+            The MHC described in \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} that satisfies \hyperref[thm:reg_cond]{theorem \ref*{thm:reg_cond}} and has a countable state space will converge to the stationary distributions: $\text{supp}(f)$. 
         \end{theorem}
         \begin{proof}
-            Observe that MHC in \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} is aperiodic because there exists $x, y\in \text{supp}(f)$ with $f(x) \neq f(y)$ and therefore allowing $\rho(x, y) < 1$ and giving us none zero probability for rejecting the current candidate. If this is not the case, it has to be $f(x) = f(y)$ for all $x, y \in S$, meaning that the uniform distribution is distribution $f$. In that case, it is the same stationary distribution as the doubly stochastic base chain $q$. 
+            Observe that MHC in \hyperref[alg:mhc]{algorithm \ref*{alg:mhc}} is aperiodic because there exists $x, y\in \text{supp}(f)$ with $f(x) \neq f(y)$ by non-negativity property of $q$, it allows $\rho(x, y) < 1$ and giving us none zero probability for staying at state $X^{(t)}$. If this is not the case, it has to be $f(x) = f(y)$ for all $x, y \in S$, meaning that the uniform distribution is distribution $f$. In that case, it is the same stationary distribution as the doubly stochastic base chain $q$. Under both cases, we have some state that can loop back to itself, we also know that it's f-irreducible, therefore the chain is aperiodic 
             \par
-            Because it satisfies theorem \ref*{thm:reg_cond} and MHC satisfies \hyperref[thm:sat_distr]{detailed balance (theorem \ref*{thm:sat_distr})}, using \hyperref[thm:cvg_sta_distr]{theorem \ref*{thm:cvg_sta_distr}} MHC will converge to $\text{supp}(f)$. 
+            Because it satisfies theorem \ref*{thm:reg_cond} and $\text{supp}(f)$ satisfies \hyperref[thm:sat_distr]{detailed balance (theorem \ref*{thm:sat_distr})}, using \hyperref[thm:cvg_sta_distr]{theorem \ref*{thm:cvg_sta_distr}} MHC will converge to $\text{supp}(f)$. 
         \end{proof}
     \subsection{Numerical experiments}
         In this experiment, we consider sampling from the following functions that we made: 
@@ -225,16 +226,16 @@
             \\
             f(x) &:= \mathbbm 1_D (\sin(x_14\pi) + \cos(x_24\pi) + 2), 
         \end{align*}
-        observe that this is not strictly a distribution function, but due to the construction of MHC in algorithm \ref*{alg:mhc}, we have $f(y)/f(x)$, meaning that we can sample any function that is a distribution function up to a constant.
+        observe that this is a distribution function up to a constant. 
         \par
-        For our case, the function $f$ has a discontinuous support set, and the sample space is continuous. Please take for granted that the convergence theorem we proved is applicable for Markov chains with a bounded continuous state space. For our experiment, we will be sampling from $f$ using this list of base chains: 
+        For our case, the function $f$ has a disconnected support set, and the sample space is continuous. Please take for granted that the convergence theorem we proved is applicable for Markov chains with a bounded continuous state space. For our experiment, we will be sampling from $f$ using this list of base chains: 
         \begin{itemize}
-            \item [1.] A wrapped Guassian random walks in $[0, 1]\times [0, 1]$ centered at the previous state, or in other words, a guassian random walks with boundary conditions on the domain: $[0, 1]\times[0, 1]$ and the standard deviation for the Gaussian distribution is $0.1$. 
-            \item [2.] A uniform distribution in $[0, 1]\times [0, 1]$
+            \item [1.] A wrapped Gaussian random walks in $[0, 1]\times [0, 1]$ centered at the previous state, or in other words, a Gaussian random walks with periodic boundary conditions on the domain: $[0, 1]\times[0, 1]$ and the standard deviation for the Gaussian distribution is $0.1$. 
+            \item [2.] A uniform distribution in $[0, 1]\times [0, 1]$ is disregarding the previous state. This is a trivial Markov chain. 
         \end{itemize}
-        We present the results for both choices of base chain in \hyperref[fig:gaussian_rand_bc]{figure \ref*{fig:gaussian_rand_bc}} and \hyperref[fig:unif_rand_bc]{\ref*{fig:unif_rand_bc}}. We take snapshots of all the existing sampled points every 5000 times. Going from left to right in both cases, we have the approximated distributions when there are 5000, 10000, and 15000 points. These two chains converge very differently for this example, which makes sense. For a uniform random sampler, the previous point does not correlate with the next point from $q$, making it possible to jump between the discrete sets in $\text{supp}(f)$ and sample from them evenly. On the contrary, the Gaussian random walks samplers have difficulties sampling evenly from each of the discrete sets in $\text{supp}(f)$. The argument makes intuitive sense because a Gaussian random walk is more likely to sample from the ``island'' close to the one where the current state resides, and it is nearly impossible for it to jump. This experiment focuses on non-negative double stochastic chain chan $q$; however, it also tells us what happens when the probability of traversing between states in the support set of $f$ when the base chain does not allow for MHC to be f-irreducible. 
+        We present the results for both choices of base chain in \hyperref[fig:gaussian_rand_bc]{figure \ref*{fig:gaussian_rand_bc}} and \hyperref[fig:unif_rand_bc]{\ref*{fig:unif_rand_bc}}. We take snapshots of all the existing sampled points every 5000 times. Going from left to right in both cases, we have the approximated distributions when there are 5000, 10000, and 15000 sampled points. These two chains converge very differently for this example, which makes sense. For a uniform random sampler, the previous point does not correlate with the next point from $q$, making it possible to jump between the discrete sets in $\text{supp}(f)$ and sample from them evenly. On the contrary, the Gaussian random walks samplers have difficulties sampling evenly from each of the discrete sets in $\text{supp}(f)$. The argument makes intuitive sense because a wrapped Gaussian random walk is more likely to sample from the ``island'' close to the one where the current state resides, and it needs more attempts to jump between the islands. This experiment focuses on non-negative double stochastic chain chan $q$; however, it also tells us that it won't be able to sample from all the disconnected components of $\text{supp}(f)$ when the probability of traversing between states in the support set of $f$ when the base chain does not allow for MHC to be f-irreducible. 
         \par
-        Finally, the reader should notice that a Monte Carlo method, without the Markov chain, is just sampling using a uniform base chain where the function $f$ is an indicator function for some sets. Moreover, this observation should reveal that MCMC is a type of MC that samples locally. 
+        Finally, the reader should notice that a Monte Carlo method, without the Markov chain, is just sampling using a uniform base chain where the function $f$ is an indicator function for some sets. Moreover, this observation should reveal the intuitions that MCMC is a type of MC that can sample locally. 
         \begin{figure}[H]
             \centering
             \begin{subfigure}{0.3\textwidth}
@@ -273,14 +274,14 @@
             \caption{Snapshot of samples for a uniform random base chain.}
             \label{fig:unif_rand_bc}
         \end{figure}
-        As a remark, choosing a base chain is much more complicated in higher dimensions, and using MCMC has overwhelming advantages. As the dimension increases, a unit sphere's volume over the unit hypercube approaches zero. As a result, it poses challenges for sampling from the hypersphere using Monte Carlo. However, if we have an initial point in the hypersphere and a carefully designed base chain, we can sample from a high-dimensional sphere. 
+        As a remark, choosing a base chain is much more complicated in higher dimensions, and using MCMC has overwhelming advantages. For example, as the dimension increases, a unit sphere's volume over the unit hypercube approaches zero. As a result, it poses challenges for sampling from the hypersphere using Monte Carlo due to a high rejection rate. However, if we have an initial point in the hypersphere and a carefully designed base chain, we can sample from a high-dimensional sphere using MCMC much more efficiently. 
 
 \section{Simulated annealing}
-    Simulated Annealing is an optimization method, and it is also a specific case of the MHC. Firstly, observe that if a distribution with a bounded domain and a set $X^*$ in the domain that denotes the maximums and $X^*$ is measurable, then the probability of sampling from $X^*$ is higher than other sets with the same measure. This inspiration here allows us to design and make an optimization method. More specifically, given any function $g:S \mapsto \mathbb R_+ \cup \{-\infty\}$, we have $f(x):= \exp(g(x))$ such that $f$ is a distribution up to a positive constant multiplier. By the monotone property of $\exp(\cdot)$, $f$ and $g$ share the same maximums. 
+    Simulated Annealing is an optimization method, and it is also a specific case of the MHC. Firstly, observe that if a distribution $f$ with a bounded domain and a set $X^*$ in the domain that denotes the maximizers and $X^*$ that makes a function $f$ close to its maximum, then the probability of sampling from $X^*$ is higher than other sets with the same measure. This inspiration here allows us to design and make an optimization method. More specifically, given any function $g:S \mapsto \mathbb R \cup \{-\infty\}$, we have $f(x):= \exp(g(x))$ such that $f$ is a distribution up to a positive constant multiplier. By the monotone property of $\exp(\cdot)$, $f$ and $g$ share the same maximizers. 
     \par
-    Compared to the MHC, which is about sampling from a distribution, the Simulated Annealing method aims to look for the maximum of a given function and comes with a slight modification called the temperature. The temperature term $T_i$ where $i$ is the current step for the drawn samples from the MHC, we have the distribution function to be given as $f(x):= \exp(g(x)/T_i)$. The goal of the temperature is to accentuate the set $X^*$. The smaller the value $T_i$, the larger the probability it is to sample from the set $X^*$ compare to other sets. 
+    Compared to the MHC, which is about sampling from a distribution, the Simulated Annealing method aims to look for the maximum of a given function and comes with a slight modification called the temperature. The temperature term is called: $T_i$ where $i$ is the current step for the drawn samples from the MHC, then we have the distribution function to be given as $f(x):= \exp(g(x)/T_i)$. The goal of the temperature is to accentuate the set $X^*$. The smaller the value $T_i$, the larger the probability it is to sample from the set $X^*$ compare to other sets. 
     \par
-    For readers who are optimizations enthusiasts, this is invigorating news. One can see that this method makes few assumptions about the objective function, and there is also a convergence proof for the method \cite{article:sim_anneal_1994}. However, we will show later with the Bin Packing Problem that its performance depends on the problem structure, the base chain, and the temperature schedule. Adding salt to injury, it only converges in distributions. Nonetheless, one can not deny its universality, the fact that it is simple to implement, and it is trivial to parallelize in modern computing platforms. 
+    For readers who are optimizations enthusiasts, this is invigorating news. One can see that this method makes few assumptions about the objective function, and there is also a convergence proof for the method \cite{article:sim_anneal_1994}. However, we will show later with the knapsack problem that its performance depends on the problem structure, the base chain, and the temperature schedule. Adding salt to injury, it only converges in distributions. Nonetheless, one can not deny its universality, the fact that it is simple to implement, and it is trivial to parallelize in modern computing platforms. 
     \subsection{The limit of temperature}
         \begin{theorem}[The limit of temperature]
             Suppose that state space $S$ is a finite set, and it is the state space for an MHC equipped with $f(x) = \exp(g(x)/T_i)$ where $g:S \mapsto \mathbb R \cup \{-\infty\}$, then as $T_i\rightarrow 0$, $f$ approaches $\mathbbm 1_{X^*}$. 
@@ -318,19 +319,21 @@
             \caption{The distribution function of $\text{sinc}(x)$ as the temperature for simulated annealing gets smaller and smaller.}
             \label{fig:sa_temp}
         \end{figure}
-        In practice, people use a function that controls the temperature for the SA to converge as the temperature gets lower and lower, which avoids exploring the whole landscape and wasting all the computing resources. Furthermore, to avoid the limitations of floating points, we consider a customized acceptance function for SA: 
+        In practice, people use a function that controls the temperature for the SA to converge as the temperature decreases which avoids exploring the whole landscape and wasting all the computing resources. Furthermore, to avoid the limitations of floating points, we consider a customized acceptance function for SA: 
         \begin{align*}
             \rho(x, y) := \min
             \left\lbrace
             \mathbbm 1 \{f(y) < f(x)\}\exp(f(y) - f(x)) + \mathbbm 1 \{f(y) \ge f(x)\}, 1
             \right\rbrace. 
         \end{align*}
-\subsection{Solving the bin packing problem}
-    The bin packing problem is an integer programming problem: 
+        The above function eliminates floating point overflow because taking the exponential of a large number can cause overflow in the computer. 
+
+\subsection{Solving the knapsack problem}
+    The knapsack problem is an integer programming problem: 
     \begin{align*}
         \max \langle w, x\rangle \text{ s.t: } \langle w, x\rangle \le 1, x\in \{1, 0\}^n. 
     \end{align*}
-    We look for a subset of numbers of the vector $w$ $1$ such that it sums up as close to one as possible while not exceeding one. We can solve this problem with SA, and the state space of the MHC will be $S:= \{0, 1\}^n$, a binary vector with length n with the objective function $g(x)$ defined as: 
+    We look for a subset of numbers from the vector $w$ such that it sums up as close to one as possible while not exceeding one. We can solve this problem with SA, and the state space of the MHC will be $S:= \{0, 1\}^n$, a binary vector with length n with the objective function $g(x)$ defined as: 
     \begin{align*}
         g(x) &:= \begin{cases}
             \langle w, x\rangle & \text{if }\langle w, x\rangle\le 1,
@@ -356,17 +359,17 @@
     \subsection{Numerical Experiments}
         Consider a list of i.i.d random variables uniformly sampled from $[0, 1]$, denoted using $W_i$. For our example, there are 99 of them. Then the sum: 
         \begin{align*}
-           1 + \left(
+           W_1 + \left(
             \sum_{i = 1}^{99} w_{i + 1} - W_i
            \right) + 1 - W_{99} = 1, 
         \end{align*}
-        therefore, we make the first element of $w_1 = W_1$ and the last element $w_{100} = 1 - W_{99}$ and $w_i = W_{i + 1} - W_{i}$ for all $1 \le i \le 99$. The first 100 elements of $w$ sum up to an optimal solution. Next, we let $w_i$ for all $200 > i > 100$ to be an i.i.d random variable drawn from the uniform distribution on the interval $[1, 2]$. This means that any of the $w_i$ for $101 \le 200$ cannot be part of the solution because adding any of them more than once will make the solution infeasible. This 200 elements vector for the bin packing problem is our numerical experiment. In addition, we also consider three different temperature schedules for the SA experiment. 
+        therefore, we make the first element of $w_1 = W_1$ and the last element $w_{100} = 1 - W_{99}$ and $w_i = W_{i + 1} - W_{i}$ for all $1 \le i \le 99$. The first 100 elements of $w$ sum up to an optimal solution. Next, we let $w_i$ for all $200 > i > 100$ to be an i.i.d random variable drawn from the uniform distribution on the interval $[1, 2]$. This means that any of the $w_i$ for $101 \le 200$ cannot be part of the solution because adding any of them more than once will make the solution infeasible (This also means that all feasible solutions are not a local maximum.). This 200 elements vector for the knapsack problem is our numerical experiment. In addition, we also consider three different temperature schedules for the SA experiment. 
         \begin{itemize}
             \item [1.] The temperature drops linearly from 1 to 0.001 every 1000 iterations, 10k iterations in total. 
             \item [2.] The temperature is $exp(-k)$ where k goes from 0 to 10. It decreases every 1000 iterations in a total of 10k iterations. 
             \item [3.] The temperature is $1/k^2$; it drops whenever the algorithm discovers a solution lower than all previous solutions for the objective function.
         \end{itemize}
-        \hyperref[fig:sa_experiments]{figure \ref*{fig:sa_experiments}} shows the results. All the MHC can converge to the unique maximum. Moreover, observe that when the temperature is automatically scheduled, it converges to the optimal fastest. However, we would like to point out that there is no good schedule for every problem. In our experiment, all feasible solutions can be changed into optimal ones without decreasing the objective function's value. Suppose that $x^+$  is the optimal and $\bar x$ is a feasible solution, then mutating any of the first 100 bits of $\bar x$ keeps its feasibility and increases its objective value. However, for the bin packing problem, this is not true in general; the algorithm could be stuck in a local optimal instead. 
+        \hyperref[fig:sa_experiments]{figure \ref*{fig:sa_experiments}} shows the results. All the MHC can converge to the unique maximum. Moreover, observe that when the temperature is automatically scheduled, it converges to the optimal fastest. However, we would like to point out that there is no good schedule for every problem. In our experiment, all feasible solutions can be changed into optimal ones without decreasing the objective function's value. Suppose that $x^+$  is the optimal and $\bar x$ is a feasible solution, then mutating any of the first 100 bits of $\bar x$ keeps its feasibility and increases its objective value. However, for the knapsack problem, this is not true in general; the algorithm could be stuck in a local optimal instead. 
         \begin{figure}[H]
             \centering
             \begin{subfigure}{0.3\textwidth}
@@ -388,7 +391,7 @@
             \caption{The objective values for 10k iterations with different types of temperature schedules. }
             \label{fig:sa_experiments}
         \end{figure}
-        There are ways to combat the problem, and I would like to point out that if $q_1, 1_2$ are the kernels of two doubly stochastic chains, then their weighted sum $\alpha_1 q_1 + \alpha_2 q_2$ where $1 = \alpha_1 + \alpha_2$ is also doubly stochastic. This can be exploited to make a base chain that is robust to the curse of dimensionality while, at the same time, able to do short random walks locally. 
+        There are ways to combat the problem, and I would like to point out that if $q_1, q_2$ are the kernels of two doubly stochastic chains, then their weighted sum $\alpha_1 q_1 + \alpha_2 q_2$ where $1 = \alpha_1 + \alpha_2$ is also doubly stochastic. This can be exploited to make a base chain that is robust to the curse of dimensionality while, at the same time, able to do short random walks locally. 
 
 
 \bibliographystyle{plain}

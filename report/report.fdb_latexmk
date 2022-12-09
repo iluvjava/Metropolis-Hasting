@@ -4,6 +4,7 @@
   "refs.bib" 1670268484 2026 a82c90652631fe4e3bc8499c9d1f1215 ""
   "report.aux" 1670628686 4476 aaaa8c37d416eee66591e886f73dbfde "pdflatex"
   (generated)
+  "report.blg"
   "report.bbl"
   "report.blg"
 ["pdflatex"] 1670628684 "c:/Users/alto/Desktop/repos/Metropolis-Hasting/report/report.tex" "report.pdf" "report" 1670628686
@@ -180,4 +181,3 @@
   "report.aux"
   "report.log"
   "report.out"
-  "report.pdf"

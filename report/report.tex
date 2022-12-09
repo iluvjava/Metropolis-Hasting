@@ -135,7 +135,7 @@
         \begin{algorithm}
             \begin{algorithmic}[H]
                 \STATE{\textbf{Input: $X^{(t)}$}}
-                \STATE{$Y^{(t)} \sim q (\cdot | x^{(t)})$}
+                \STATE{$Y^{(t)} \sim q (\cdot | X^{(t)})$}
                 \STATE{
                     $ 
                     \rho(x, y) := 
@@ -281,7 +281,7 @@
     \par
     Compared to the MHC, which is about sampling from a distribution, the Simulated Annealing method aims to look for the maximum of a given function and comes with a slight modification called the temperature. The temperature term is called: $T_i$ where $i$ is the current step for the drawn samples from the MHC, then we have the distribution function to be given as $f(x):= \exp(g(x)/T_i)$. The goal of the temperature is to accentuate the set $X^*$. The smaller the value $T_i$, the larger the probability it is to sample from the set $X^*$ compare to other sets. 
     \par
-    For readers who are optimizations enthusiasts, this is invigorating news. One can see that this method makes few assumptions about the objective function, and there is also a convergence proof for the method \cite{article:sim_anneal_1994}. However, we will show later with the knapsack problem that its performance depends on the problem structure, the base chain, and the temperature schedule. Adding salt to injury, it only converges in distributions. Nonetheless, one can not deny its universality, the fact that it is simple to implement, and it is trivial to parallelize in modern computing platforms. 
+    For readers who are optimizations enthusiasts, this is invigorating news. One can see that this method makes few assumptions about the objective function, and there is also a convergence proof for the method \cite{article:sim_anneal_1994}. However, we will show later with the knapsack problem that its performance depends on the problem structure, the base chain, and the temperature schedule. Adding salt to injury, it only converges in distributions. Nonetheless, we can not deny its universality, the fact that it is simple to implement, and it is trivial to parallelize in modern computing platforms. 
     \subsection{The limit of temperature}
         \begin{theorem}[The limit of temperature]
             Suppose that state space $S$ is a finite set, and it is the state space for an MHC equipped with $f(x) = \exp(g(x)/T_i)$ where $g:S \mapsto \mathbb R \cup \{-\infty\}$, then as $T_i\rightarrow 0$, $f$ approaches $\mathbbm 1_{X^*}$. 
@@ -308,7 +308,7 @@
                 \lim_{T\rightarrow 0}
                 \frac{1}{1 + \sum_{y\in S\setminus\{x\}}^{}\exp(g(y) - g(x)/T)}
                 \\
-                &= \mathbbm 1\{X^+\}. 
+                &= \mathbbm 1\{X^*\}. 
             \end{align*}
             Take note that the assumption I made here is stronger than it needs to be; it might still converge for MHC with a continuous distribution. For more detail about the limiting behavior of the distribution function as $T\rightarrow 0$, see chapter 3 of the book by Levin et al. \cite {book:mkv_mix_time} for more details. 
         \end{proof}
@@ -365,11 +365,11 @@
         \end{align*}
         therefore, we make the first element of $w_1 = W_1$ and the last element $w_{100} = 1 - W_{99}$ and $w_i = W_{i + 1} - W_{i}$ for all $1 \le i \le 99$. The first 100 elements of $w$ sum up to an optimal solution. Next, we let $w_i$ for all $200 > i > 100$ to be an i.i.d random variable drawn from the uniform distribution on the interval $[1, 2]$. This means that any of the $w_i$ for $101 \le 200$ cannot be part of the solution because adding any of them more than once will make the solution infeasible (This also means that all feasible solutions are not a local maximum.). This 200 elements vector for the knapsack problem is our numerical experiment. In addition, we also consider three different temperature schedules for the SA experiment. 
         \begin{itemize}
-            \item [1.] The temperature drops linearly from 1 to 0.001 every 1000 iterations, 10k iterations in total. 
+            \item [1.] The temperature drops quadratically from 1 to 0.001 every 1000 iterations, 10k iterations in total. 
             \item [2.] The temperature is $exp(-k)$ where k goes from 0 to 10. It decreases every 1000 iterations in a total of 10k iterations. 
             \item [3.] The temperature is $1/k^2$; it drops whenever the algorithm discovers a solution lower than all previous solutions for the objective function.
         \end{itemize}
-        \hyperref[fig:sa_experiments]{figure \ref*{fig:sa_experiments}} shows the results. All the MHC can converge to the unique maximum. Moreover, observe that when the temperature is automatically scheduled, it converges to the optimal fastest. However, we would like to point out that there is no good schedule for every problem. In our experiment, all feasible solutions can be changed into optimal ones without decreasing the objective function's value. Suppose that $x^+$  is the optimal and $\bar x$ is a feasible solution, then mutating any of the first 100 bits of $\bar x$ keeps its feasibility and increases its objective value. However, for the knapsack problem, this is not true in general; the algorithm could be stuck in a local optimal instead. 
+        \hyperref[fig:sa_experiments]{figure \ref*{fig:sa_experiments}} shows the results. All the MHC can converge to the unique maximum. Moreover, observe that when the temperature is automatic, it converges to the optimal fastest. However, we would like to point out that there is no good schedule for every problem. In our experiment, all feasible solutions can transition into the optimal without decreasing the objective function's value. Suppose that $x^+$  is the optimal and $\bar x$ is a feasible solution, then mutating any of the first 100 bits of $\bar x$ keeps its feasibility and increases its objective value. However, for the knapsack problem, this is not true in general; the algorithm could be stuck in a local optimal instead. 
         \begin{figure}[H]
             \centering
             \begin{subfigure}{0.3\textwidth}

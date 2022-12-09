@@ -219,7 +219,7 @@
             \par
             Because it satisfies theorem \ref*{thm:reg_cond} and $\text{supp}(f)$ satisfies \hyperref[thm:sat_distr]{detailed balance (theorem \ref*{thm:sat_distr})}, using \hyperref[thm:cvg_sta_distr]{theorem \ref*{thm:cvg_sta_distr}} MHC will converge to $\text{supp}(f)$. 
         \end{proof}
-    \subsection{Numerical experiments}
+    \subsection{Numerical experiments: Sampling}
         In this experiment, we consider sampling from the following functions that we made: 
         \begin{align*}
             D &:= \{(x_1, x_2): -\sin(4\pi x_1) + 2\sin(2\pi x_2)^2 > 1.5\}
@@ -356,11 +356,11 @@
             q(Y|x) := \mathbb P(Y=\llbracket x + e_\eta\rrbracket),
         \end{align*}
         would be a better choice. It is also f-irreducible because we can mutate every ``1'' bit in $x$ to get to $\mathbf 0$, then there is a probability to get from $\mathbf 0$ to any $x$. 
-    \subsection{Numerical Experiments}
+    \subsection{Numerical experiments: Optimizations}
         Consider a list of i.i.d random variables uniformly sampled from $[0, 1]$, denoted using $W_i$. For our example, there are 99 of them. Then the sum: 
         \begin{align*}
            W_1 + \left(
-            \sum_{i = 1}^{99} w_{i + 1} - W_i
+            \sum_{i = 1}^{99} W_{i + 1} - W_i
            \right) + 1 - W_{99} = 1, 
         \end{align*}
         therefore, we make the first element of $w_1 = W_1$ and the last element $w_{100} = 1 - W_{99}$ and $w_i = W_{i + 1} - W_{i}$ for all $1 \le i \le 99$. The first 100 elements of $w$ sum up to an optimal solution. Next, we let $w_i$ for all $200 > i > 100$ to be an i.i.d random variable drawn from the uniform distribution on the interval $[1, 2]$. This means that any of the $w_i$ for $101 \le 200$ cannot be part of the solution because adding any of them more than once will make the solution infeasible (This also means that all feasible solutions are not a local maximum.). This 200 elements vector for the knapsack problem is our numerical experiment. In addition, we also consider three different temperature schedules for the SA experiment. 

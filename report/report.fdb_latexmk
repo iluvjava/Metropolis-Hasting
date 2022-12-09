@@ -1,13 +1,12 @@
 # Fdb version 3
-["bibtex report"] 1670628448 "report.aux" "report.bbl" "report" 1670628686
+["bibtex report"] 1670629118 "report.aux" "report.bbl" "report" 1670629121
   "C:/Users/alto/AppData/Local/Programs/MiKTeX/bibtex/bst/bibtex/plain.bst" 1291864736 20613 bd3fbfa9f64872b81ac57a0dd2ed855f ""
   "refs.bib" 1670268484 2026 a82c90652631fe4e3bc8499c9d1f1215 ""
-  "report.aux" 1670628686 4476 aaaa8c37d416eee66591e886f73dbfde "pdflatex"
+  "report.aux" 1670629120 4501 a7befe9b3e80e7190713740efdb4c704 "pdflatex"
   (generated)
-  "report.blg"
   "report.bbl"
   "report.blg"
-["pdflatex"] 1670628684 "c:/Users/alto/Desktop/repos/Metropolis-Hasting/report/report.tex" "report.pdf" "report" 1670628686
+["pdflatex"] 1670629119 "c:/Users/alto/Desktop/repos/Metropolis-Hasting/report/report.tex" "report.pdf" "report" 1670629121
   "C:/Users/alto/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1670624113 83842 fa67ffe560ffbc63f9ce131ef9a43b7a ""
   "C:/Users/alto/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1095.pk" 1669250684 28976 76d426cb17f7c2a8194dc6723c4fe949 ""
   "C:/Users/alto/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1200.pk" 1669250680 31952 7744ee4152b3dd870a964b65a0dac58b ""
@@ -162,14 +161,14 @@
   "C:/Users/alto/AppData/Local/Programs/MiKTeX/tex/latex/wrapfig/wrapfig.sty" 1044403200 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "C:/Users/alto/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656233290 56148 51a9a8571c07b9921892ae11063ae853 ""
   "C:/Users/alto/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656233319 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "c:/Users/alto/Desktop/repos/Metropolis-Hasting/report/report.tex" 1670628683 30355 765ffff2efe27a5c10255ded8510c4a2 ""
+  "c:/Users/alto/Desktop/repos/Metropolis-Hasting/report/report.tex" 1670629112 30369 fc75bd8d0bb581854c8bea1e1a065ff0 ""
   "gaussian_base(1).png" 1670268484 18953 c0c40391cb18f559e6a5389f3110002d ""
   "gaussian_base(2).png" 1670268484 22527 e1e9275390d10ff03ad8e6501a462a8d ""
   "gaussian_base(3).png" 1670268484 23227 8ddc21cf8b266957243f8ed9c6ca5edb ""
-  "report.aux" 1670628686 4476 aaaa8c37d416eee66591e886f73dbfde "pdflatex"
-  "report.bbl" 1670628448 1020 3fc9f3303d51734f01c1b4fe95f7139b "bibtex report"
-  "report.out" 1670628686 2035 af2d1f46dc1eeef9a0e5615c2c33ab0a "pdflatex"
-  "report.tex" 1670628683 30355 765ffff2efe27a5c10255ded8510c4a2 ""
+  "report.aux" 1670629120 4501 a7befe9b3e80e7190713740efdb4c704 "pdflatex"
+  "report.bbl" 1670629119 1020 3fc9f3303d51734f01c1b4fe95f7139b "bibtex report"
+  "report.out" 1670629120 2166 0f1d8bb4e8edec5b0023084bb51d71db "pdflatex"
+  "report.tex" 1670629112 30369 fc75bd8d0bb581854c8bea1e1a065ff0 ""
   "sa_experiment1.png" 1670268484 39034 a333bef8d63279046d0d6ecdaf0c5138 ""
   "sa_experiment2.png" 1670268484 28483 77643a5d5e723807c64a81c7441583d3 ""
   "sa_experiment3.png" 1670268484 14376 fd83283622eac25a6032f485ca5214d8 ""
@@ -181,3 +180,4 @@
   "report.aux"
   "report.log"
   "report.out"
+  "report.pdf"
